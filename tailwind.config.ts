@@ -54,11 +54,11 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				learning: {
-					blue: 'hsl(var(--learning-blue))',
-					'blue-light': 'hsl(var(--learning-blue-light))',
-					green: 'hsl(var(--learning-green))',
-					orange: 'hsl(var(--learning-orange))',
-					purple: 'hsl(var(--learning-purple))'
+					olive: 'hsl(var(--learning-olive))',
+					brown: 'hsl(var(--learning-brown))',
+					beige: 'hsl(var(--learning-beige))',
+					cream: 'hsl(var(--learning-cream))',
+					gray: 'hsl(var(--learning-gray))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',

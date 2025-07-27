@@ -84,16 +84,16 @@ const Index = () => {
               
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <Button size="lg" className="bg-white text-learning-blue hover:bg-white/90 shadow-hero text-lg px-8 py-4" asChild>
+                <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-lg px-8 py-4" asChild>
                   <Link to="/teachers">
                     <Users className="w-5 h-5 mr-2" />
                     اختر معلمك الآن
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10 text-lg px-8 py-4" asChild>
-                  <Link to="/demo">
+                <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-lg px-8 py-4" asChild>
+                  <Link to="/courses">
                     <Play className="w-5 h-5 mr-2" />
-                    شاهد عرض تجريبي
+                    شاهد الدورات
                   </Link>
                 </Button>
               </div>
@@ -125,12 +125,12 @@ const Index = () => {
               {/* Floating Cards */}
               <div className="absolute -top-4 -right-4 bg-white rounded-xl p-4 shadow-card animate-float" style={{ animationDelay: '0.5s' }}>
                 <div className="flex items-center space-x-2">
-                  <Star className="w-5 h-5 text-learning-orange fill-current" />
+                  <Star className="w-5 h-5 text-learning-brown fill-current" />
                   <span className="font-semibold">4.9/5</span>
                 </div>
                 <div className="text-sm text-muted-foreground">من 2000+ تقييم</div>
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-learning-green text-white rounded-xl p-4 shadow-card animate-float" style={{ animationDelay: '1s' }}>
+              <div className="absolute -bottom-4 -left-4 bg-learning-olive text-white rounded-xl p-4 shadow-card animate-float" style={{ animationDelay: '1s' }}>
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="w-5 h-5" />
                   <span className="font-semibold">95%</span>
@@ -288,13 +288,13 @@ const Index = () => {
               انضم إلى آلاف الطلاب الذين حققوا أهدافهم في تعلم اللغة الإنجليزية معنا
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-learning-blue hover:bg-white/90 shadow-hero text-lg px-8 py-4" asChild>
+              <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-lg px-8 py-4" asChild>
                 <Link to="/teachers">
                   <BookOpen className="w-5 h-5 mr-2" />
                   ابدأ الآن مجاناً
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10 text-lg px-8 py-4" asChild>
+              <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-lg px-8 py-4" asChild>
                 <Link to="/about">
                   تعرف على المزيد
                 </Link>

@@ -39,6 +39,9 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
             <Link to="/about" className="text-foreground hover:text-primary transition-colors duration-200">
               من نحن
             </Link>
+            <Link to="/contact" className="text-foreground hover:text-primary transition-colors duration-200">
+              تواصل معنا
+            </Link>
           </nav>
 
           {/* Actions */}
@@ -104,6 +107,13 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 من نحن
+              </Link>
+              <Link
+                to="/contact"
+                className="block px-3 py-2 text-foreground hover:bg-secondary rounded-md transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                تواصل معنا
               </Link>
               <div className="flex items-center justify-between px-3 py-2">
                 <Button

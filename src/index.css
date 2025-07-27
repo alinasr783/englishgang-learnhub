@@ -6,57 +6,57 @@
 
 @layer base {
   :root {
-    /* Brand Colors - English Learning Theme */
-    --background: 210 20% 98%;
-    --foreground: 215 25% 12%;
+    /* Brand Colors - Modern Earth Tones */
+    --background: 60 20% 98%;
+    --foreground: 45 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 12%;
+    --card-foreground: 45 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 12%;
+    --popover-foreground: 45 25% 15%;
 
-    /* Primary - Professional Blue */
-    --primary: 217 91% 60%;
+    /* Primary - Warm Earth Green */
+    --primary: 45 15% 40%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 217 91% 70%;
+    --primary-glow: 45 15% 50%;
 
-    /* Secondary - Warm Academic */
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 215 25% 12%;
+    /* Secondary - Light Beige */
+    --secondary: 35 20% 85%;
+    --secondary-foreground: 45 25% 15%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 20% 50%;
+    --muted: 35 20% 85%;
+    --muted-foreground: 45 15% 45%;
 
-    /* Accent - Success Green */
-    --accent: 142 76% 36%;
+    /* Accent - Warm Brown */
+    --accent: 35 25% 52%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 91% 60%;
+    --border: 0 0% 86%;
+    --input: 0 0% 86%;
+    --ring: 45 15% 40%;
 
     --radius: 0.75rem;
 
-    /* English Learning Brand Colors */
-    --learning-blue: 217 91% 60%;
-    --learning-blue-light: 217 91% 70%;
-    --learning-green: 142 76% 36%;
-    --learning-orange: 25 95% 53%;
-    --learning-purple: 262 52% 47%;
+    /* English Learning Earth Colors */
+    --learning-olive: 45 15% 40%;
+    --learning-brown: 35 25% 52%;
+    --learning-beige: 35 20% 75%;
+    --learning-cream: 35 15% 85%;
+    --learning-gray: 0 0% 86%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--learning-blue)), hsl(var(--learning-purple)));
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(210 40% 99%));
-    --gradient-success: linear-gradient(135deg, hsl(var(--learning-green)), hsl(142 76% 46%));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--learning-olive)), hsl(var(--learning-brown)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(35 15% 96%));
+    --gradient-success: linear-gradient(135deg, hsl(var(--learning-brown)), hsl(35 30% 62%));
 
     /* Shadows */
-    --shadow-card: 0 4px 20px -4px hsl(var(--learning-blue) / 0.1);
-    --shadow-glow: 0 0 40px hsl(var(--learning-blue) / 0.2);
-    --shadow-hero: 0 20px 60px -10px hsl(var(--learning-blue) / 0.3);
+    --shadow-card: 0 4px 20px -4px hsl(var(--learning-olive) / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--learning-olive) / 0.2);
+    --shadow-hero: 0 20px 60px -10px hsl(var(--learning-olive) / 0.3);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -80,47 +80,47 @@
   }
 
   .dark {
-    /* Dark Mode - English Learning Theme */
-    --background: 215 28% 7%;
-    --foreground: 210 40% 98%;
+    /* Dark Mode - Earth Tones */
+    --background: 45 20% 8%;
+    --foreground: 35 15% 92%;
 
-    --card: 215 28% 9%;
-    --card-foreground: 210 40% 98%;
+    --card: 45 20% 10%;
+    --card-foreground: 35 15% 92%;
 
-    --popover: 215 28% 9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 45 20% 10%;
+    --popover-foreground: 35 15% 92%;
 
-    /* Primary - Bright Blue in Dark */
-    --primary: 217 91% 65%;
-    --primary-foreground: 215 28% 7%;
-    --primary-glow: 217 91% 75%;
+    /* Primary - Lighter Earth Green in Dark */
+    --primary: 45 20% 55%;
+    --primary-foreground: 45 20% 8%;
+    --primary-glow: 45 20% 65%;
 
-    --secondary: 215 28% 12%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 45 20% 12%;
+    --secondary-foreground: 35 15% 92%;
 
-    --muted: 215 28% 12%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 45 20% 12%;
+    --muted-foreground: 45 15% 65%;
 
-    /* Accent - Bright Green in Dark */
-    --accent: 142 76% 45%;
-    --accent-foreground: 215 28% 7%;
+    /* Accent - Warm Brown in Dark */
+    --accent: 35 30% 62%;
+    --accent-foreground: 45 20% 8%;
 
     --destructive: 0 84% 65%;
-    --destructive-foreground: 215 28% 7%;
+    --destructive-foreground: 45 20% 8%;
 
-    --border: 215 28% 15%;
-    --input: 215 28% 15%;
-    --ring: 217 91% 65%;
+    --border: 45 20% 18%;
+    --input: 45 20% 18%;
+    --ring: 45 20% 55%;
 
     /* Dark Mode Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--learning-blue)), hsl(var(--learning-purple)));
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(215 28% 11%));
-    --gradient-success: linear-gradient(135deg, hsl(var(--learning-green)), hsl(142 76% 55%));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--learning-olive)), hsl(var(--learning-brown)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(45 20% 12%));
+    --gradient-success: linear-gradient(135deg, hsl(var(--learning-brown)), hsl(35 35% 72%));
 
     /* Dark Mode Shadows */
     --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
-    --shadow-glow: 0 0 40px hsl(var(--learning-blue) / 0.3);
-    --shadow-hero: 0 20px 60px -10px hsl(var(--learning-blue) / 0.4);
+    --shadow-glow: 0 0 40px hsl(var(--learning-olive) / 0.3);
+    --shadow-hero: 0 20px 60px -10px hsl(var(--learning-olive) / 0.4);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
