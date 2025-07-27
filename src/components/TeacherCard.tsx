@@ -62,14 +62,10 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
               </span>
             </div>
 
-            {/* Experience and Rate */}
+            {/* Rate */}
             <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Clock className="w-4 h-4" />
-                <span>{teacher.experience}</span>
-              </div>
               <div className="text-right">
-                <span className="text-lg font-bold text-primary">{teacher.hourlyRate} ج.م</span>
+                <span className="text-lg font-bold text-primary">{teacher.hourlyRate} EGP</span>
                 <span className="text-sm text-muted-foreground">/hour</span>
               </div>
             </div>

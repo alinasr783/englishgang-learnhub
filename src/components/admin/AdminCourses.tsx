@@ -33,7 +33,7 @@ const AdminCourses = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    level: 'مبتدئ',
+    level: 'Beginner',
     duration: '',
     price: '',
     instructor: '',
@@ -58,8 +58,8 @@ const AdminCourses = () => {
       setCourses(data || []);
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في جلب الكورسات",
+        title: "Error",
+        description: "Failed to fetch courses",
         variant: "destructive",
       });
     } finally {
@@ -86,8 +86,8 @@ const AdminCourses = () => {
       return data.publicUrl;
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في رفع الصورة",
+        title: "Error",
+        description: "Failed to upload image",
         variant: "destructive",
       });
       return null;
@@ -127,22 +127,22 @@ const AdminCourses = () => {
           .eq('id', editingCourse.id);
 
         if (error) throw error;
-        toast({ title: "تم تحديث الكورس بنجاح" });
+        toast({ title: "Course updated successfully" });
       } else {
         const { error } = await supabase
           .from('courses')
           .insert([courseData]);
 
         if (error) throw error;
-        toast({ title: "تم إضافة الكورس بنجاح" });
+        toast({ title: "Course added successfully" });
       }
 
       resetForm();
       fetchCourses();
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في حفظ الكورس",
+        title: "Error",
+        description: "Failed to save course",
         variant: "destructive",
       });
     } finally {
@@ -166,7 +166,7 @@ const AdminCourses = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('هل أنت متأكد من حذف هذا الكورس؟')) return;
+    if (!confirm('Are you sure you want to delete this course?')) return;
 
     try {
       const { error } = await supabase
@@ -175,12 +175,12 @@ const AdminCourses = () => {
         .eq('id', id);
 
       if (error) throw error;
-      toast({ title: "تم حذف الكورس بنجاح" });
+      toast({ title: "Course deleted successfully" });
       fetchCourses();
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في حذف الكورس",
+        title: "Error",
+        description: "Failed to delete course",
         variant: "destructive",
       });
     }
@@ -190,7 +190,7 @@ const AdminCourses = () => {
     setFormData({
       title: '',
       description: '',
-      level: 'مبتدئ',
+      level: 'Beginner',
       duration: '',
       price: '',
       instructor: '',
@@ -203,29 +203,29 @@ const AdminCourses = () => {
   };
 
   if (loading && courses.length === 0) {
-    return <div className="text-center py-8">جاري التحميل...</div>;
+    return <div className="text-center py-8">Loading...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">إدارة الكورسات</h2>
+        <h2 className="text-2xl font-bold">Manage Courses</h2>
         <Button onClick={() => setShowForm(true)}>
           <Plus className="w-4 h-4 mr-2" />
-          إضافة كورس جديد
+          Add New Course
         </Button>
       </div>
 
       {showForm && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingCourse ? 'تعديل الكورس' : 'إضافة كورس جديد'}</CardTitle>
+            <CardTitle>{editingCourse ? 'Edit Course' : 'Add New Course'}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="title">العنوان</Label>
+                  <Label htmlFor="title">Title</Label>
                   <Input
                     id="title"
                     value={formData.title}
@@ -234,7 +234,7 @@ const AdminCourses = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="instructor">المدرس</Label>
+                  <Label htmlFor="instructor">Instructor</Label>
                   <Input
                     id="instructor"
                     value={formData.instructor}
@@ -243,30 +243,30 @@ const AdminCourses = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="level">المستوى</Label>
+                  <Label htmlFor="level">Level</Label>
                   <Select value={formData.level} onValueChange={(value) => setFormData(prev => ({ ...prev, level: value }))}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="مبتدئ">مبتدئ</SelectItem>
-                      <SelectItem value="متوسط">متوسط</SelectItem>
-                      <SelectItem value="متقدم">متقدم</SelectItem>
+                      <SelectItem value="Beginner">Beginner</SelectItem>
+                      <SelectItem value="Intermediate">Intermediate</SelectItem>
+                      <SelectItem value="Advanced">Advanced</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="duration">المدة</Label>
+                  <Label htmlFor="duration">Duration</Label>
                   <Input
                     id="duration"
                     value={formData.duration}
                     onChange={(e) => setFormData(prev => ({ ...prev, duration: e.target.value }))}
-                    placeholder="مثال: 8 أسابيع"
+                    placeholder="e.g: 8 weeks"
                     required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="price">السعر (جنيه مصري)</Label>
+                  <Label htmlFor="price">Price (EGP)</Label>
                   <Input
                     id="price"
                     type="number"
@@ -276,7 +276,7 @@ const AdminCourses = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="category">الفئة</Label>
+                  <Label htmlFor="category">Category</Label>
                   <Input
                     id="category"
                     value={formData.category}
@@ -287,7 +287,7 @@ const AdminCourses = () => {
               </div>
 
               <div>
-                <Label htmlFor="description">الوصف</Label>
+                <Label htmlFor="description">Description</Label>
                 <Textarea
                   id="description"
                   value={formData.description}
@@ -298,18 +298,18 @@ const AdminCourses = () => {
               </div>
 
               <div>
-                <Label htmlFor="features">المميزات (سطر واحد لكل ميزة)</Label>
+                <Label htmlFor="features">Features (one per line)</Label>
                 <Textarea
                   id="features"
                   value={formData.features}
                   onChange={(e) => setFormData(prev => ({ ...prev, features: e.target.value }))}
                   rows={4}
-                  placeholder="شهادة معتمدة&#10;دعم مدى الحياة&#10;مشاريع عملية"
+                  placeholder="Certificate included&#10;Lifetime support&#10;Practical projects"
                 />
               </div>
 
               <div>
-                <Label htmlFor="image">صورة الكورس</Label>
+                <Label htmlFor="image">Course Image</Label>
                 <Input
                   id="image"
                   type="file"
@@ -320,10 +320,10 @@ const AdminCourses = () => {
 
               <div className="flex gap-2">
                 <Button type="submit" disabled={loading}>
-                  {editingCourse ? 'تحديث' : 'إضافة'}
+                  {editingCourse ? 'Update' : 'Add'}
                 </Button>
                 <Button type="button" variant="outline" onClick={resetForm}>
-                  إلغاء
+                  Cancel
                 </Button>
               </div>
             </form>
@@ -348,19 +348,19 @@ const AdminCourses = () => {
             <CardContent>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span>المستوى:</span>
+                  <span>Level:</span>
                   <Badge variant="secondary">{course.level}</Badge>
                 </div>
                 <div className="flex justify-between">
-                  <span>المدة:</span>
+                  <span>Duration:</span>
                   <span>{course.duration}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>السعر:</span>
-                  <span>{course.price} ج.م</span>
+                  <span>Price:</span>
+                  <span>{course.price} EGP</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>الطلاب:</span>
+                  <span>Students:</span>
                   <span>{course.students}</span>
                 </div>
                 <div className="flex gap-2 mt-4">

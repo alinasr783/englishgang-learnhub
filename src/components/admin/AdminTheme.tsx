@@ -108,15 +108,15 @@ const AdminTheme = () => {
       applyTheme(themeSettings);
       
       toast({
-        title: "تم حفظ إعدادات الثيم بنجاح",
-        description: "تم تطبيق الألوان الجديدة على الموقع",
+        title: "Theme settings saved successfully",
+        description: "New colors have been applied to the website",
       });
 
       fetchThemeSettings();
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في حفظ إعدادات الثيم",
+        title: "Error",
+        description: "Failed to save theme settings",
         variant: "destructive",
       });
     } finally {
@@ -136,18 +136,18 @@ const AdminTheme = () => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold">إعدادات الثيم</h2>
+      <h2 className="text-2xl font-bold">Theme Settings</h2>
       
       <Card>
         <CardHeader>
-          <CardTitle>ألوان الموقع</CardTitle>
-          <CardDescription>قم بتخصيص الألوان الرئيسية للموقع</CardDescription>
+          <CardTitle>Website Colors</CardTitle>
+          <CardDescription>Customize the main colors of the website</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="primary">اللون الأساسي</Label>
+                <Label htmlFor="primary">Primary Color</Label>
                 <div className="flex items-center gap-3">
                   <Input
                     id="primary"
@@ -171,7 +171,7 @@ const AdminTheme = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="secondary">اللون الثانوي</Label>
+                <Label htmlFor="secondary">Secondary Color</Label>
                 <div className="flex items-center gap-3">
                   <Input
                     id="secondary"
@@ -195,7 +195,7 @@ const AdminTheme = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="accent">لون التركيز</Label>
+                <Label htmlFor="accent">Accent Color</Label>
                 <div className="flex items-center gap-3">
                   <Input
                     id="accent"
@@ -221,10 +221,10 @@ const AdminTheme = () => {
 
             <div className="flex gap-3">
               <Button type="submit" disabled={loading}>
-                {loading ? 'جاري الحفظ...' : 'حفظ التغييرات'}
+                {loading ? 'Saving...' : 'Save Changes'}
               </Button>
               <Button type="button" variant="outline" onClick={resetToDefault}>
-                إعادة تعيين للافتراضي
+                Reset to Default
               </Button>
             </div>
           </form>
@@ -233,19 +233,19 @@ const AdminTheme = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>معاينة الألوان</CardTitle>
-          <CardDescription>شاهد كيف ستبدو الألوان في العناصر المختلفة</CardDescription>
+          <CardTitle>Color Preview</CardTitle>
+          <CardDescription>See how the colors will look in different elements</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Button style={{ backgroundColor: themeSettings.primary_color, color: 'white' }}>
-              زر بالّلون الأساسي
+              Primary Button
             </Button>
             <Button style={{ backgroundColor: themeSettings.secondary_color, color: 'white' }}>
-              زر بالّلون الثانوي
+              Secondary Button
             </Button>
             <Button style={{ backgroundColor: themeSettings.accent_color, color: 'white' }}>
-              زر بلون التركيز
+              Accent Button
             </Button>
           </div>
         </CardContent>

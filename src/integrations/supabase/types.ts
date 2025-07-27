@@ -41,6 +41,48 @@ export type Database = {
         }
         Relationships: []
       }
+      bookings: {
+        Row: {
+          created_at: string
+          id: string
+          lesson_date: string
+          lesson_notes: string | null
+          lesson_time: string
+          status: string
+          student_email: string
+          student_name: string
+          student_phone: string | null
+          teacher_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lesson_date: string
+          lesson_notes?: string | null
+          lesson_time: string
+          status?: string
+          student_email: string
+          student_name: string
+          student_phone?: string | null
+          teacher_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lesson_date?: string
+          lesson_notes?: string | null
+          lesson_time?: string
+          status?: string
+          student_email?: string
+          student_name?: string
+          student_phone?: string | null
+          teacher_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       courses: {
         Row: {
           category: string

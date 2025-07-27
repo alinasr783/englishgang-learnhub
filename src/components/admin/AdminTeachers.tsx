@@ -17,7 +17,6 @@ interface Teacher {
   rating: number;
   reviews: number;
   hourly_rate: number;
-  experience: number;
   languages: string[];
   image_url: string | null;
   is_online: boolean;
@@ -35,7 +34,6 @@ const AdminTeachers = () => {
     name: '',
     specialization: '',
     hourly_rate: '',
-    experience: '',
     languages: '',
     bio: '',
     education: '',
@@ -60,8 +58,8 @@ const AdminTeachers = () => {
       setTeachers(data || []);
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في جلب المعلمين",
+        title: "Error",
+        description: "Failed to fetch teachers",
         variant: "destructive",
       });
     } finally {
@@ -88,8 +86,8 @@ const AdminTeachers = () => {
       return data.publicUrl;
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في رفع الصورة",
+        title: "Error",
+        description: "Failed to upload image",
         variant: "destructive",
       });
       return null;
@@ -112,7 +110,6 @@ const AdminTeachers = () => {
         name: formData.name,
         specialization: formData.specialization,
         hourly_rate: parseFloat(formData.hourly_rate),
-        experience: parseInt(formData.experience),
         languages: formData.languages.split(',').map(l => l.trim()),
         bio: formData.bio,
         education: formData.education,
@@ -121,6 +118,7 @@ const AdminTeachers = () => {
         image_url: imageUrl,
         rating: editingTeacher?.rating || 0,
         reviews: editingTeacher?.reviews || 0,
+        experience: 1, // Default value since we're removing experience display
       };
 
       if (editingTeacher) {
@@ -130,22 +128,22 @@ const AdminTeachers = () => {
           .eq('id', editingTeacher.id);
 
         if (error) throw error;
-        toast({ title: "تم تحديث المعلم بنجاح" });
+        toast({ title: "Teacher updated successfully" });
       } else {
         const { error } = await supabase
           .from('teachers')
           .insert([teacherData]);
 
         if (error) throw error;
-        toast({ title: "تم إضافة المعلم بنجاح" });
+        toast({ title: "Teacher added successfully" });
       }
 
       resetForm();
       fetchTeachers();
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في حفظ المعلم",
+        title: "Error",
+        description: "Failed to save teacher",
         variant: "destructive",
       });
     } finally {
@@ -159,7 +157,6 @@ const AdminTeachers = () => {
       name: teacher.name,
       specialization: teacher.specialization,
       hourly_rate: teacher.hourly_rate.toString(),
-      experience: teacher.experience.toString(),
       languages: teacher.languages.join(', '),
       bio: teacher.bio || '',
       education: teacher.education || '',
@@ -170,7 +167,7 @@ const AdminTeachers = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('هل أنت متأكد من حذف هذا المعلم؟')) return;
+    if (!confirm('Are you sure you want to delete this teacher?')) return;
 
     try {
       const { error } = await supabase
@@ -179,12 +176,12 @@ const AdminTeachers = () => {
         .eq('id', id);
 
       if (error) throw error;
-      toast({ title: "تم حذف المعلم بنجاح" });
+      toast({ title: "Teacher deleted successfully" });
       fetchTeachers();
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في حذف المعلم",
+        title: "Error",
+        description: "Failed to delete teacher",
         variant: "destructive",
       });
     }
@@ -195,7 +192,6 @@ const AdminTeachers = () => {
       name: '',
       specialization: '',
       hourly_rate: '',
-      experience: '',
       languages: '',
       bio: '',
       education: '',
@@ -208,29 +204,29 @@ const AdminTeachers = () => {
   };
 
   if (loading && teachers.length === 0) {
-    return <div className="text-center py-8">جاري التحميل...</div>;
+    return <div className="text-center py-8">Loading...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">إدارة المعلمين</h2>
+        <h2 className="text-2xl font-bold">Manage Teachers</h2>
         <Button onClick={() => setShowForm(true)}>
           <Plus className="w-4 h-4 mr-2" />
-          إضافة معلم جديد
+          Add New Teacher
         </Button>
       </div>
 
       {showForm && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingTeacher ? 'تعديل المعلم' : 'إضافة معلم جديد'}</CardTitle>
+            <CardTitle>{editingTeacher ? 'Edit Teacher' : 'Add New Teacher'}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="name">الاسم</Label>
+                  <Label htmlFor="name">Name</Label>
                   <Input
                     id="name"
                     value={formData.name}
@@ -239,7 +235,7 @@ const AdminTeachers = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="specialization">التخصص</Label>
+                  <Label htmlFor="specialization">Specialization</Label>
                   <Input
                     id="specialization"
                     value={formData.specialization}
@@ -248,7 +244,7 @@ const AdminTeachers = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="hourly_rate">الأجر بالساعة (جنيه مصري)</Label>
+                  <Label htmlFor="hourly_rate">Hourly Rate (EGP)</Label>
                   <Input
                     id="hourly_rate"
                     type="number"
@@ -258,27 +254,17 @@ const AdminTeachers = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="experience">سنوات الخبرة</Label>
-                  <Input
-                    id="experience"
-                    type="number"
-                    value={formData.experience}
-                    onChange={(e) => setFormData(prev => ({ ...prev, experience: e.target.value }))}
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="languages">اللغات (مفصولة بفاصلة)</Label>
+                  <Label htmlFor="languages">Languages (comma separated)</Label>
                   <Input
                     id="languages"
                     value={formData.languages}
                     onChange={(e) => setFormData(prev => ({ ...prev, languages: e.target.value }))}
-                    placeholder="العربية, الإنجليزية"
+                    placeholder="Arabic, English"
                     required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="education">التعليم</Label>
+                  <Label htmlFor="education">Education</Label>
                   <Input
                     id="education"
                     value={formData.education}
@@ -288,7 +274,7 @@ const AdminTeachers = () => {
               </div>
 
               <div>
-                <Label htmlFor="bio">نبذة مختصرة</Label>
+                <Label htmlFor="bio">Bio</Label>
                 <Textarea
                   id="bio"
                   value={formData.bio}
@@ -298,7 +284,7 @@ const AdminTeachers = () => {
               </div>
 
               <div>
-                <Label htmlFor="certifications">الشهادات (سطر واحد لكل شهادة)</Label>
+                <Label htmlFor="certifications">Certifications (one per line)</Label>
                 <Textarea
                   id="certifications"
                   value={formData.certifications}
@@ -313,11 +299,11 @@ const AdminTeachers = () => {
                   checked={formData.is_online}
                   onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_online: checked }))}
                 />
-                <Label htmlFor="is_online">متاح أونلاين</Label>
+                <Label htmlFor="is_online">Available Online</Label>
               </div>
 
               <div>
-                <Label htmlFor="image">صورة المعلم</Label>
+                <Label htmlFor="image">Teacher Photo</Label>
                 <Input
                   id="image"
                   type="file"
@@ -328,10 +314,10 @@ const AdminTeachers = () => {
 
               <div className="flex gap-2">
                 <Button type="submit" disabled={loading}>
-                  {editingTeacher ? 'تحديث' : 'إضافة'}
+                  {editingTeacher ? 'Update' : 'Add'}
                 </Button>
                 <Button type="button" variant="outline" onClick={resetForm}>
-                  إلغاء
+                  Cancel
                 </Button>
               </div>
             </form>
@@ -356,21 +342,17 @@ const AdminTeachers = () => {
             <CardContent>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span>الأجر:</span>
-                  <span>{teacher.hourly_rate} ج.م/ساعة</span>
+                  <span>Rate:</span>
+                  <span>{teacher.hourly_rate} EGP/hour</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>الخبرة:</span>
-                  <span>{teacher.experience} سنة</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>التقييم:</span>
+                  <span>Rating:</span>
                   <span>⭐ {teacher.rating}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>الحالة:</span>
+                  <span>Status:</span>
                   <Badge variant={teacher.is_online ? "default" : "secondary"}>
-                    {teacher.is_online ? "متاح" : "غير متاح"}
+                    {teacher.is_online ? "Available" : "Unavailable"}
                   </Badge>
                 </div>
                 <div className="flex flex-wrap gap-1 mt-2">

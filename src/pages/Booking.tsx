@@ -108,8 +108,8 @@ const Booking = () => {
     
     if (!selectedTeacher || !selectedDate || !selectedTime || !studentName || !studentEmail) {
       toast({
-        title: "معلومات ناقصة",
-        description: "يرجى ملء جميع الحقول المطلوبة",
+        title: "Missing Information",
+        description: "Please fill in all required fields",
         variant: "destructive",
       });
       return;
@@ -118,12 +118,25 @@ const Booking = () => {
     setLoading(true);
     
     try {
-      // Simulate booking process
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Insert booking into database
+      const { error } = await supabase
+        .from('bookings')
+        .insert([{
+          teacher_id: selectedTeacher.id,
+          student_name: studentName,
+          student_email: studentEmail,
+          student_phone: studentPhone,
+          lesson_date: format(selectedDate, 'yyyy-MM-dd'),
+          lesson_time: selectedTime,
+          lesson_notes: lessonNotes,
+          status: 'pending'
+        }]);
+
+      if (error) throw error;
       
       toast({
-        title: "تم الحجز بنجاح! 🎉",
-        description: `تم حجز درسك مع ${selectedTeacher.name} في ${format(selectedDate, 'dd/MM/yyyy', { locale: ar })} الساعة ${selectedTime}`,
+        title: "Booking Successful! 🎉",
+        description: `Your lesson with ${selectedTeacher.name} has been booked for ${format(selectedDate, 'dd/MM/yyyy')} at ${selectedTime}`,
       });
 
       // Reset form
@@ -141,8 +154,8 @@ const Booking = () => {
       
     } catch (error) {
       toast({
-        title: "خطأ في الحجز",
-        description: "حدث خطأ أثناء محاولة الحجز. يرجى المحاولة مرة أخرى.",
+        title: "Booking Error",
+        description: "An error occurred while trying to book. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -156,10 +169,10 @@ const Booking = () => {
       <div className="hero-gradient py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up">
-            احجز درسك الآن
+            Book Your Lesson Now
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto animate-slide-up">
-            اختر المعلم والوقت المناسب لك وابدأ رحلتك في تعلم الإنجليزية
+            Choose your teacher and time that suits you and start your English learning journey
           </p>
         </div>
       </div>
@@ -172,17 +185,17 @@ const Booking = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BookOpen className="w-5 h-5" />
-                  تفاصيل الحجز
+                  Booking Details
                 </CardTitle>
                 <CardDescription>
-                  املأ النموذج أدناه لحجز درسك مع المعلم المختار
+                  Fill out the form below to book your lesson with the selected teacher
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Teacher Selection */}
                   <div className="space-y-2">
-                    <Label htmlFor="teacher">اختر المعلم</Label>
+                    <Label htmlFor="teacher">Choose Teacher</Label>
                     <Select 
                       value={selectedTeacher?.id || ""} 
                       onValueChange={(value) => {
@@ -191,7 +204,7 @@ const Booking = () => {
                       }}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="اختر معلم من القائمة" />
+                        <SelectValue placeholder="Select a teacher from the list" />
                       </SelectTrigger>
                       <SelectContent>
                         {teachers.map((teacher) => (
@@ -210,7 +223,7 @@ const Booking = () => {
 
                   {/* Date Selection */}
                   <div className="space-y-2">
-                    <Label>اختر التاريخ</Label>
+                    <Label>Choose Date</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -221,9 +234,9 @@ const Booking = () => {
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
                           {selectedDate ? (
-                            format(selectedDate, "PPP", { locale: ar })
+                            format(selectedDate, "PPP")
                           ) : (
-                            <span>اختر التاريخ</span>
+                            <span>Choose date</span>
                           )}
                         </Button>
                       </PopoverTrigger>
@@ -243,7 +256,7 @@ const Booking = () => {
 
                   {/* Time Selection */}
                   <div className="space-y-2">
-                    <Label>اختر الوقت</Label>
+                    <Label>Choose Time</Label>
                     <div className="grid grid-cols-4 gap-2">
                       {timeSlots.map((time) => (
                         <Button
@@ -262,17 +275,17 @@ const Booking = () => {
                   {/* Student Information */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name">الاسم الكامل *</Label>
+                      <Label htmlFor="name">Full Name *</Label>
                       <Input
                         id="name"
                         value={studentName}
                         onChange={(e) => setStudentName(e.target.value)}
-                        placeholder="ادخل اسمك الكامل"
+                        placeholder="Enter your full name"
                         required
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">البريد الإلكتروني *</Label>
+                      <Label htmlFor="email">Email *</Label>
                       <Input
                         id="email"
                         type="email"
@@ -285,7 +298,7 @@ const Booking = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone">رقم الهاتف</Label>
+                    <Label htmlFor="phone">Phone Number</Label>
                     <Input
                       id="phone"
                       value={studentPhone}
@@ -295,12 +308,12 @@ const Booking = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="notes">ملاحظات إضافية</Label>
+                    <Label htmlFor="notes">Additional Notes</Label>
                     <Textarea
                       id="notes"
                       value={lessonNotes}
                       onChange={(e) => setLessonNotes(e.target.value)}
-                      placeholder="أي ملاحظات أو طلبات خاصة للدرس..."
+                      placeholder="Any notes or special requests for the lesson..."
                       rows={3}
                     />
                   </div>
@@ -314,12 +327,12 @@ const Booking = () => {
                     {loading ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        جاري الحجز...
+                        Booking...
                       </>
                     ) : (
                       <>
                         <BookOpen className="w-4 h-4 mr-2" />
-                        احجز الدرس
+                        Book Lesson
                       </>
                     )}
                   </Button>
@@ -333,7 +346,7 @@ const Booking = () => {
             {selectedTeacher && (
               <Card>
                 <CardHeader>
-                  <CardTitle>معلومات المعلم</CardTitle>
+                  <CardTitle>Teacher Information</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -350,9 +363,9 @@ const Booking = () => {
                     </div>
                   </div>
                   <div className="flex justify-between items-center pt-2 border-t">
-                    <span className="text-muted-foreground">السعر لكل ساعة:</span>
+                    <span className="text-muted-foreground">Price per hour:</span>
                     <span className="text-lg font-bold text-primary">
-                      {selectedTeacher.hourly_rate} ج.م
+                      {selectedTeacher.hourly_rate} EGP
                     </span>
                   </div>
                 </CardContent>
@@ -362,13 +375,13 @@ const Booking = () => {
             {(selectedDate || selectedTime) && (
               <Card>
                 <CardHeader>
-                  <CardTitle>تفاصيل الموعد</CardTitle>
+                  <CardTitle>Appointment Details</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {selectedDate && (
                     <div className="flex items-center gap-2">
                       <CalendarIcon className="w-4 h-4 text-primary" />
-                      <span>{format(selectedDate, "PPP", { locale: ar })}</span>
+                      <span>{format(selectedDate, "PPP")}</span>
                     </div>
                   )}
                   {selectedTime && (
@@ -383,14 +396,14 @@ const Booking = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>ملاحظات مهمة</CardTitle>
+                <CardTitle>Important Notes</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• الدرس التجريبي الأول مجاني لمدة 30 دقيقة</li>
-                  <li>• يمكنك إلغاء أو تعديل الموعد قبل 24 ساعة</li>
-                  <li>• ستتلقى رابط الاجتماع عبر البريد الإلكتروني</li>
-                  <li>• تأكد من اتصالك بالإنترنت قبل بدء الدرس</li>
+                  <li>• First trial lesson is free for 30 minutes</li>
+                  <li>• You can cancel or modify the appointment 24 hours in advance</li>
+                  <li>• You will receive the meeting link via email</li>
+                  <li>• Make sure your internet connection is stable before the lesson</li>
                 </ul>
               </CardContent>
             </Card>
@@ -401,7 +414,7 @@ const Booking = () => {
               onClick={() => navigate('/teachers')}
             >
               <ArrowRight className="w-4 h-4 mr-2" />
-              العودة إلى قائمة المعلمين
+              Back to Teachers List
             </Button>
           </div>
         </div>
