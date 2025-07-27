@@ -10,7 +10,7 @@ const Footer = () => {
             to="/admin-login" 
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
-            Are you the admin?
+            هل أنت مدير الموقع؟
           </Link>
         </div>
         <div className="text-center text-muted-foreground text-sm mt-4">

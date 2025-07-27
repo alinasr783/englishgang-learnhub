@@ -34,17 +34,54 @@ const AdminLogin = () => {
     setError('');
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      // Check if admin exists in our admins table and verify password
+      const { data: isValidAdmin, error: verifyError } = await supabase
+        .rpc('verify_admin_password', {
+          admin_email: email,
+          password_input: password
+        });
+
+      if (verifyError) {
+        setError('حدث خطأ في التحقق من البيانات');
+        return;
+      }
+
+      if (!isValidAdmin) {
+        setError('بيانات الدخول غير صحيحة');
+        return;
+      }
+
+      // If admin is valid, try to sign in with Supabase Auth
+      let authResult = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) {
-        setError(error.message);
+      // If user doesn't exist in auth, create them
+      if (authResult.error) {
+        const { error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+        
+        if (signUpError) {
+          setError('فشل في إنشاء جلسة المدير');
+          return;
+        }
+        
+        // Try signing in again
+        authResult = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+      }
+
+      if (authResult.error) {
+        setError('فشل في تسجيل الدخول');
         return;
       }
 
-      if (data.user) {
+      if (authResult.data.user) {
         toast({
           title: "تم تسجيل الدخول بنجاح",
           description: "مرحباً بك في لوحة التحكم",
@@ -53,6 +90,7 @@ const AdminLogin = () => {
       }
     } catch (err) {
       setError('حدث خطأ غير متوقع');
+      console.error('Login error:', err);
     } finally {
       setLoading(false);
     }
