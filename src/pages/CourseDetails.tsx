@@ -33,6 +33,8 @@ const CourseDetails = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (id) {
       fetchCourse(id);
     }

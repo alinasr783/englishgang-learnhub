@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, Menu, X, BookOpen, Users, Calendar, LogIn } from "lucide-react";
+import { Moon, Sun, Menu, X, BookOpen, Users, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface HeaderProps {
@@ -39,9 +39,6 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
             <Link to="/about" className="text-foreground hover:text-primary transition-colors duration-200">
               من نحن
             </Link>
-            <Link to="/contact" className="text-foreground hover:text-primary transition-colors duration-200">
-              تواصل معنا
-            </Link>
           </nav>
 
           {/* Actions */}
@@ -53,12 +50,6 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
               className="hover:bg-secondary"
             >
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
-            <Button variant="outline" asChild>
-              <Link to="/auth" className="flex items-center space-x-2">
-                <LogIn className="w-4 h-4" />
-                <span>تسجيل الدخول</span>
-              </Link>
             </Button>
             <Button asChild className="shadow-card">
               <Link to="/booking">احجز الآن</Link>
@@ -108,13 +99,6 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
               >
                 من نحن
               </Link>
-              <Link
-                to="/contact"
-                className="block px-3 py-2 text-foreground hover:bg-secondary rounded-md transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                تواصل معنا
-              </Link>
               <div className="flex items-center justify-between px-3 py-2">
                 <Button
                   variant="ghost"
@@ -124,10 +108,7 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
                 >
                   {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </Button>
-                <div className="flex space-x-2">
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to="/auth">تسجيل الدخول</Link>
-                  </Button>
+                <div className="flex justify-end">
                   <Button size="sm" asChild>
                     <Link to="/booking">احجز الآن</Link>
                   </Button>

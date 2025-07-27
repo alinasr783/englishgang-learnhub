@@ -17,6 +17,10 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import courseConversation from "@/assets/course-conversation.jpg";
+import courseIelts from "@/assets/course-ielts.jpg";
+import courseBusiness from "@/assets/course-business.jpg";
+import courseGrammar from "@/assets/course-grammar.jpg";
 
 
 const Courses = () => {
@@ -29,8 +33,20 @@ const Courses = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     fetchCourses();
   }, []);
+
+  const getCourseImage = (category: string) => {
+    switch (category) {
+      case 'محادثة': return courseConversation;
+      case 'امتحانات': return courseIelts;
+      case 'أعمال': return courseBusiness;
+      case 'قواعد': return courseGrammar;
+      default: return courseConversation;
+    }
+  };
 
   const fetchCourses = async () => {
     try {
@@ -52,7 +68,7 @@ const Courses = () => {
         rating: course.rating || 0,
         price: course.price,
         instructor: course.instructor,
-        image: course.image_url || "/placeholder.svg",
+        image: getCourseImage(course.category),
         category: course.category,
         features: course.features || [],
       })) || [];
@@ -77,7 +93,7 @@ const Courses = () => {
           rating: 4.8,
           price: 1200, // EGP
           instructor: "سارة أحمد",
-          image: "/placeholder.svg",
+          image: courseConversation,
           category: "محادثة",
           features: ["دروس تفاعلية", "ممارسة يومية", "شهادة معتمدة"]
         },
@@ -91,7 +107,7 @@ const Courses = () => {
           rating: 4.9,
           price: 2400, // EGP
           instructor: "مايكل جونسون",
-          image: "/placeholder.svg",
+          image: courseIelts,
           category: "امتحانات",
           features: ["امتحانات تجريبية", "تقييم شخصي", "ضمان النتيجة"]
         },
@@ -105,7 +121,7 @@ const Courses = () => {
           rating: 4.7,
           price: 1800, // EGP
           instructor: "إيما سميث",
-          image: "/placeholder.svg",
+          image: courseBusiness,
           category: "أعمال",
           features: ["مهارات العرض", "كتابة المراسلات", "مقابلات العمل"]
         },
@@ -119,7 +135,7 @@ const Courses = () => {
           rating: 4.6,
           price: 800, // EGP
           instructor: "أحمد محمد",
-          image: "/placeholder.svg",
+          image: courseGrammar,
           category: "قواعد",
           features: ["شرح مبسط", "تمارين متدرجة", "مراجعة مستمرة"]
         }
@@ -239,10 +255,12 @@ const Courses = () => {
               className="overflow-hidden hover:shadow-glow transition-all duration-300 animate-scale-in border-0 shadow-card"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="relative h-48 bg-gradient-card">
-                <div className="absolute inset-0 bg-learning-olive/10 flex items-center justify-center">
-                  <BookOpen className="w-16 h-16 text-learning-olive/50" />
-                </div>
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={course.image} 
+                  alt={course.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
                 <Badge 
                   className="absolute top-4 right-4 bg-learning-brown text-white"
                 >

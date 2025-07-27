@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
@@ -14,6 +15,11 @@ import {
 } from "lucide-react";
 
 const About = () => {
+  useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
