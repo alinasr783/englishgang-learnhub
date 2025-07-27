@@ -96,26 +96,26 @@ const CourseDetails = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-primary/10 to-background py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-8">
+      <div className="bg-gradient-to-b from-primary/10 to-background py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Course Info */}
             <div className="lg:col-span-2">
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {course.image_url && (
                   <img
                     src={course.image_url}
                     alt={course.title}
-                    className="w-full h-64 object-cover rounded-lg"
+                    className="w-full h-48 sm:h-56 lg:h-64 object-cover rounded-lg"
                   />
                 )}
                 
                 <div>
                   <Badge variant="secondary" className="mb-2">{course.category}</Badge>
-                  <h1 className="text-3xl font-bold mb-4">{course.title}</h1>
-                  <p className="text-lg text-muted-foreground mb-6">{course.description}</p>
+                  <h1 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{course.title}</h1>
+                  <p className="text-base sm:text-lg text-muted-foreground mb-4 sm:mb-6">{course.description}</p>
                   
-                  <div className="flex flex-wrap gap-4 mb-6">
+                  <div className="flex flex-wrap gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <div className="flex items-center gap-1">
                       <Star className="w-5 h-5 text-yellow-500 fill-current" />
                       <span className="font-medium">{course.rating}</span>
@@ -177,8 +177,8 @@ const CourseDetails = () => {
       </div>
       
       {/* Details Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* What you'll learn */}
             {course.features && course.features.length > 0 && (

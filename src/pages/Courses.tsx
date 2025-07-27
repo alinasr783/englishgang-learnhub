@@ -163,21 +163,21 @@ const Courses = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="hero-gradient py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up">
+      <div className="hero-gradient py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 animate-slide-up">
             Our Educational Courses
           </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto animate-slide-up">
+          <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto animate-slide-up px-4">
             Choose from a variety of courses designed specifically to achieve your educational goals
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Search and Filter Section */}
-        <div className="bg-card rounded-2xl shadow-card p-6 mb-8 animate-scale-in">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-card rounded-xl sm:rounded-2xl shadow-card p-4 sm:p-6 mb-6 sm:mb-8 animate-scale-in">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -248,7 +248,7 @@ const Courses = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredCourses.map((course, index) => (
             <Card 
               key={course.id} 

@@ -121,21 +121,21 @@ const Teachers = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="hero-gradient py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up">
+      <div className="hero-gradient py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 animate-slide-up">
             Choose Your Perfect Teacher
           </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto animate-slide-up">
+          <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto animate-slide-up px-4">
             Learn English with the best qualified teachers from around the world
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Search and Filter Section */}
-        <div className="bg-card rounded-2xl shadow-card p-6 mb-8 animate-scale-in">
-          <div className="flex flex-col md:flex-row gap-4">
+        <div className="bg-card rounded-xl sm:rounded-2xl shadow-card p-4 sm:p-6 mb-6 sm:mb-8 animate-scale-in">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             {/* Search */}
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -149,7 +149,7 @@ const Teachers = () => {
 
             {/* Sort */}
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full md:w-48">
+              <SelectTrigger className="w-full sm:w-48">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
@@ -162,7 +162,7 @@ const Teachers = () => {
 
             {/* Filter */}
             <Select value={filterBy} onValueChange={setFilterBy}>
-              <SelectTrigger className="w-full md:w-48">
+              <SelectTrigger className="w-full sm:w-48">
                 <SelectValue placeholder="Filter" />
               </SelectTrigger>
               <SelectContent>
@@ -191,7 +191,7 @@ const Teachers = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredTeachers.map((teacher, index) => (
               <div
                 key={teacher.id}

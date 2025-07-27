@@ -22,14 +22,14 @@ interface TeacherCardProps {
 const TeacherCard = ({ teacher }: TeacherCardProps) => {
   return (
     <Card className="group hover:shadow-glow transition-all duration-300 hover:-translate-y-1 card-gradient border-border/50">
-      <CardContent className="p-6">
-        <div className="flex items-start space-x-4">
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex items-start space-x-3 sm:space-x-4">
           {/* Profile Image */}
-          <div className="relative">
+          <div className="relative flex-shrink-0">
             <img
               src={teacher.image}
               alt={teacher.name}
-              className="w-16 h-16 rounded-full object-cover border-2 border-primary/20"
+              className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-primary/20"
             />
             {teacher.isOnline && (
               <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-learning-green rounded-full border-2 border-background flex items-center justify-center">
@@ -70,17 +70,19 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
 
 
             {/* Action Buttons */}
-            <div className="flex space-x-2">
-              <Button variant="outline" size="sm" className="flex-1" asChild>
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+              <Button variant="outline" size="sm" className="flex-1 text-xs sm:text-sm" asChild>
                 <Link to={`/teachers/${teacher.id}`}>
-                  <Users className="w-4 h-4 mr-1" />
-                  View Profile
+                  <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                  <span className="hidden sm:inline">View Profile</span>
+                  <span className="sm:hidden">Profile</span>
                 </Link>
               </Button>
-              <Button size="sm" className="flex-1" asChild>
+              <Button size="sm" className="flex-1 text-xs sm:text-sm" asChild>
                 <Link to={`/booking?teacher=${teacher.id}`}>
-                  <BookOpen className="w-4 h-4 mr-1" />
-                  Book Lesson
+                  <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                  <span className="hidden sm:inline">Book Lesson</span>
+                  <span className="sm:hidden">Book</span>
                 </Link>
               </Button>
             </div>

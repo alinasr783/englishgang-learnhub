@@ -166,19 +166,19 @@ const Booking = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="hero-gradient py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up">
+      <div className="hero-gradient py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 animate-slide-up">
             Book Your Lesson Now
           </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto animate-slide-up">
+          <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto animate-slide-up px-4">
             Choose your teacher and time that suits you and start your English learning journey
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Booking Form */}
           <div className="lg:col-span-2">
             <Card>
@@ -257,7 +257,7 @@ const Booking = () => {
                   {/* Time Selection */}
                   <div className="space-y-2">
                     <Label>Choose Time</Label>
-                    <div className="grid grid-cols-4 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                       {timeSlots.map((time) => (
                         <Button
                           key={time}
@@ -273,7 +273,7 @@ const Booking = () => {
                   </div>
 
                   {/* Student Information */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name *</Label>
                       <Input

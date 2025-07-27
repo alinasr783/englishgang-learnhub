@@ -23,21 +23,21 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="hero-gradient py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up">
+      <div className="hero-gradient py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 animate-slide-up">
             About Us
           </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto animate-slide-up">
+          <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto animate-slide-up px-4">
             We are a team specialized in teaching English using the latest methods and technologies
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Our Story Section */}
-        <div className="text-center mb-16 animate-scale-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Story</h2>
+        <div className="text-center mb-12 sm:mb-16 animate-scale-in">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">Our Story</h2>
           <div className="max-w-4xl mx-auto">
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
               EnglishGang.pro started from a simple idea: making English learning easier, more enjoyable, and effective. 
@@ -52,9 +52,9 @@ const About = () => {
         </div>
 
         {/* Values Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12">Our Values</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <Card className="text-center shadow-card border-0 hover:shadow-glow transition-all duration-300">
               <CardHeader>
                 <div className="w-16 h-16 mx-auto bg-learning-olive/10 rounded-full flex items-center justify-center mb-4">
@@ -100,30 +100,30 @@ const About = () => {
         </div>
 
         {/* Statistics Section */}
-        <div className="bg-card rounded-2xl shadow-card p-8 md:p-12 mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Achievements in Numbers</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="bg-card rounded-xl sm:rounded-2xl shadow-card p-6 sm:p-8 lg:p-12 mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12">Our Achievements in Numbers</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">5000+</div>
-              <div className="text-muted-foreground">Successful Students</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary mb-1 sm:mb-2">5000+</div>
+              <div className="text-muted-foreground text-xs sm:text-sm lg:text-base">Successful Students</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">50+</div>
-              <div className="text-muted-foreground">Expert Teachers</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary mb-1 sm:mb-2">50+</div>
+              <div className="text-muted-foreground text-xs sm:text-sm lg:text-base">Expert Teachers</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">25+</div>
-              <div className="text-muted-foreground">Specialized Courses</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary mb-1 sm:mb-2">25+</div>
+              <div className="text-muted-foreground text-xs sm:text-sm lg:text-base">Specialized Courses</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">98%</div>
-              <div className="text-muted-foreground">Satisfaction Rate</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary mb-1 sm:mb-2">98%</div>
+              <div className="text-muted-foreground text-xs sm:text-sm lg:text-base">Satisfaction Rate</div>
             </div>
           </div>
         </div>
 
         {/* Mission & Vision */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           <Card className="shadow-card border-0">
             <CardHeader>
               <div className="w-16 h-16 bg-learning-olive/10 rounded-full flex items-center justify-center mb-4">
@@ -157,8 +157,8 @@ const About = () => {
 
         {/* Why Choose Us */}
         <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">Why Choose Us?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12">Why Choose Us?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
             <div className="bg-card rounded-xl p-6 shadow-card border-0">
               <BookOpen className="w-12 h-12 text-learning-olive mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-3">Advanced Curriculum</h3>

@@ -70,90 +70,90 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="hero-gradient min-h-screen flex items-center">
-          <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Hero Content */}
-            <div className="text-white animate-slide-up">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Learn English with
-                <span className="block text-transparent bg-gradient-to-r from-white to-blue-200 bg-clip-text">
-                  The Best Teachers
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 text-white/90 leading-relaxed">
-                Book individual lessons with qualified teachers from around the world. Learn at your own pace and achieve your English learning goals.
-              </p>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-lg px-8 py-4" asChild>
-                  <Link to="/teachers">
-                    <Users className="w-5 h-5 mr-2" />
-                    Choose Your Teacher
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-lg px-8 py-4" asChild>
-                  <Link to="/courses">
-                    <Play className="w-5 h-5 mr-2" />
-                    View Courses
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold mb-1">500+</div>
-                  <div className="text-white/80 text-sm">Qualified Teachers</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold mb-1">10k+</div>
-                  <div className="text-white/80 text-sm">Happy Students</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold mb-1">4.9</div>
-                  <div className="text-white/80 text-sm">Platform Rating</div>
-                </div>
-              </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Hero Content */}
+          <div className="text-white animate-slide-up text-center lg:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+              Learn English with
+              <span className="block text-transparent bg-gradient-to-r from-white to-blue-200 bg-clip-text">
+                The Best Teachers
+              </span>
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 leading-relaxed">
+              Book individual lessons with qualified teachers from around the world. Learn at your own pace and achieve your English learning goals.
+            </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 justify-center lg:justify-start">
+              <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto" asChild>
+                <Link to="/teachers">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                  Choose Your Teacher
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto" asChild>
+                <Link to="/courses">
+                  <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                  View Courses
+                </Link>
+              </Button>
             </div>
 
-            {/* Hero Image */}
-            <div className="relative animate-float">
-              <img
-                src={heroImage}
-                alt="English Learning Platform"
-                className="rounded-3xl shadow-hero w-full max-w-lg mx-auto"
-              />
-              {/* Floating Cards */}
-              <div className="absolute -top-4 -right-4 bg-white rounded-xl p-4 shadow-card animate-float" style={{ animationDelay: '0.5s' }}>
-                <div className="flex items-center space-x-2">
-                  <Star className="w-5 h-5 text-learning-brown fill-current" />
-                  <span className="font-semibold">4.9/5</span>
-                </div>
-                <div className="text-sm text-muted-foreground">From 2000+ reviews</div>
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-6">
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1">500+</div>
+                <div className="text-white/80 text-xs sm:text-sm">Qualified Teachers</div>
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-learning-olive text-white rounded-xl p-4 shadow-card animate-float" style={{ animationDelay: '1s' }}>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-5 h-5" />
-                  <span className="font-semibold">95%</span>
-                </div>
-                <div className="text-sm opacity-90">Success Rate</div>
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1">10k+</div>
+                <div className="text-white/80 text-xs sm:text-sm">Happy Students</div>
+              </div>
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1">4.9</div>
+                <div className="text-white/80 text-xs sm:text-sm">Platform Rating</div>
               </div>
             </div>
+          </div>
+
+          {/* Hero Image */}
+          <div className="relative animate-float mt-8 lg:mt-0 order-first lg:order-last">
+            <img
+              src={heroImage}
+              alt="English Learning Platform"
+              className="rounded-2xl sm:rounded-3xl shadow-hero w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto"
+            />
+            {/* Floating Cards */}
+            <div className="absolute -top-2 sm:-top-4 -right-2 sm:-right-4 bg-white rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-card animate-float text-xs sm:text-sm" style={{ animationDelay: '0.5s' }}>
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <Star className="w-3 h-3 sm:w-5 sm:h-5 text-learning-brown fill-current" />
+                <span className="font-semibold">4.9/5</span>
+              </div>
+              <div className="text-xs text-muted-foreground hidden sm:block">From 2000+ reviews</div>
+            </div>
+            <div className="absolute -bottom-2 sm:-bottom-4 -left-2 sm:-left-4 bg-learning-olive text-white rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-card animate-float text-xs sm:text-sm" style={{ animationDelay: '1s' }}>
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <CheckCircle className="w-3 h-3 sm:w-5 sm:h-5" />
+                <span className="font-semibold">95%</span>
+              </div>
+              <div className="text-xs opacity-90 hidden sm:block">Success Rate</div>
+            </div>
+          </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-scale-in">
-            <h2 className="text-4xl font-bold mb-4">Why Choose EnglishGang?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+      <section className="py-12 sm:py-16 lg:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16 animate-scale-in">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Why Choose EnglishGang?</h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
               We provide you with the best personalized learning experience tailored to your needs and goals
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 icon: <Users className="w-8 h-8" />,
@@ -201,16 +201,16 @@ const Index = () => {
       </section>
 
       {/* Featured Teachers Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Our Best Teachers</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+      <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Our Best Teachers</h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
               Meet our outstanding teachers who have earned the highest ratings from students
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
             {featuredTeachers.map((teacher, index) => (
               <div
                 key={teacher.id}
@@ -234,16 +234,16 @@ const Index = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">How Do You Start Your Journey?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+      <section className="py-12 sm:py-16 lg:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">How Do You Start Your Journey?</h2>
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
               Three simple steps to start learning English with us
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 step: "1",
@@ -279,23 +279,23 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 hero-gradient">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-12 sm:py-16 lg:py-20 hero-gradient">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto text-white">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
               Start Your English Learning Journey Today
             </h2>
-            <p className="text-xl mb-8 text-white/90">
+            <p className="text-lg sm:text-xl mb-6 sm:mb-8 text-white/90 px-4">
               Join thousands of students who have achieved their English learning goals with us
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-lg px-8 py-4" asChild>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto" asChild>
                 <Link to="/teachers">
-                  <BookOpen className="w-5 h-5 mr-2" />
+                  <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                   Start Now for Free
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-lg px-8 py-4" asChild>
+              <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto" asChild>
                 <Link to="/about">
                   Learn More
                 </Link>

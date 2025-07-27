@@ -90,31 +90,31 @@ const TeacherProfile = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-primary/10 to-background py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-8">
+      <div className="bg-gradient-to-b from-primary/10 to-background py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Teacher Info */}
             <div className="lg:col-span-2">
-              <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 <div className="flex-shrink-0">
                   {teacher.image_url ? (
                     <img
                       src={teacher.image_url}
                       alt={teacher.name}
-                      className="w-48 h-48 rounded-lg object-cover mx-auto md:mx-0"
+                      className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-lg object-cover mx-auto sm:mx-0"
                     />
                   ) : (
-                    <div className="w-48 h-48 bg-muted rounded-lg flex items-center justify-center mx-auto md:mx-0">
-                      <span className="text-4xl text-muted-foreground">👤</span>
+                    <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 bg-muted rounded-lg flex items-center justify-center mx-auto sm:mx-0">
+                      <span className="text-2xl sm:text-3xl lg:text-4xl text-muted-foreground">👤</span>
                     </div>
                   )}
                 </div>
                 
-                <div className="flex-1 text-center md:text-right">
-                  <h1 className="text-3xl font-bold mb-2">{teacher.name}</h1>
-                  <p className="text-xl text-muted-foreground mb-4">{teacher.specialization}</p>
+                <div className="flex-1 text-center sm:text-left">
+                  <h1 className="text-2xl sm:text-3xl font-bold mb-2">{teacher.name}</h1>
+                  <p className="text-lg sm:text-xl text-muted-foreground mb-3 sm:mb-4">{teacher.specialization}</p>
                   
-                  <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-4">
+                  <div className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-4 mb-3 sm:mb-4">
                     <div className="flex items-center gap-1">
                       <Star className="w-5 h-5 text-yellow-500 fill-current" />
                       <span className="font-medium">{teacher.rating}</span>
@@ -172,8 +172,8 @@ const TeacherProfile = () => {
       </div>
       
       {/* Details Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* Education */}
             {teacher.education && (
