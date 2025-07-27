@@ -11,8 +11,6 @@ interface Teacher {
   rating: number;
   reviews: number;
   hourlyRate: number;
-  experience: string;
-  languages: string[];
   image: string;
   isOnline: boolean;
 }
@@ -70,14 +68,6 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
               </div>
             </div>
 
-            {/* Languages */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {teacher.languages.map((lang, index) => (
-                <Badge key={index} variant="outline" className="text-xs">
-                  {lang}
-                </Badge>
-              ))}
-            </div>
 
             {/* Action Buttons */}
             <div className="flex space-x-2">

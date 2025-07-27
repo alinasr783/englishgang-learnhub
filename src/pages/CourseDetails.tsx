@@ -52,8 +52,8 @@ const CourseDetails = () => {
       setCourse(data);
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في جلب بيانات الكورس",
+        title: "Error",
+        description: "Failed to fetch course data",
         variant: "destructive",
       });
       navigate('/courses');
@@ -64,8 +64,8 @@ const CourseDetails = () => {
 
   const handleRegister = () => {
     toast({
-      title: "سيتم إضافة نظام التسجيل قريباً",
-      description: "نعمل على تطوير نظام التسجيل في الكورسات",
+      title: "Registration System Coming Soon",
+      description: "We're working on developing the course registration system",
     });
   };
 
@@ -74,7 +74,7 @@ const CourseDetails = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4">جاري التحميل...</p>
+          <p className="mt-4">Loading...</p>
         </div>
       </div>
     );
@@ -84,9 +84,9 @@ const CourseDetails = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">الكورس غير موجود</h2>
+          <h2 className="text-2xl font-bold mb-4">Course Not Found</h2>
           <Button onClick={() => navigate('/courses')}>
-            العودة إلى قائمة الكورسات
+            Back to Courses
           </Button>
         </div>
       </div>
@@ -123,7 +123,7 @@ const CourseDetails = () => {
                     
                     <div className="flex items-center gap-1">
                       <Users className="w-5 h-5 text-primary" />
-                      <span>{course.students} طالب</span>
+                      <span>{course.students} students</span>
                     </div>
                     
                     <div className="flex items-center gap-1">
@@ -136,7 +136,7 @@ const CourseDetails = () => {
                   
                   <div className="flex items-center gap-2">
                     <Award className="w-5 h-5 text-primary" />
-                    <span className="font-medium">المدرس: {course.instructor}</span>
+                    <span className="font-medium">Instructor: {course.instructor}</span>
                   </div>
                 </div>
               </div>
@@ -146,14 +146,14 @@ const CourseDetails = () => {
             <div className="lg:col-span-1">
               <Card className="sticky top-24">
                 <CardHeader>
-                  <CardTitle className="text-center">سجل في الكورس</CardTitle>
+                  <CardTitle className="text-center">Register for Course</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-primary">
-                      {course.price} ج.م
+                      {course.price} EGP
                     </div>
-                    <div className="text-muted-foreground">السعر الكامل</div>
+                    <div className="text-muted-foreground">Full Price</div>
                   </div>
                   
                   <Separator />
@@ -163,11 +163,11 @@ const CourseDetails = () => {
                     size="lg"
                     onClick={handleRegister}
                   >
-                    سجل الآن
+                    Register Now
                   </Button>
                   
                   <div className="text-xs text-center text-muted-foreground">
-                    ضمان استرداد المال خلال 30 يوم
+                    30-day money-back guarantee
                   </div>
                 </CardContent>
               </Card>
@@ -184,7 +184,7 @@ const CourseDetails = () => {
             {course.features && course.features.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle>ما ستتعلمه في هذا الكورس</CardTitle>
+                  <CardTitle>What You'll Learn</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
@@ -203,7 +203,7 @@ const CourseDetails = () => {
             {course.content_outline && course.content_outline.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle>محتوى الكورس</CardTitle>
+                  <CardTitle>Course Content</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
@@ -224,7 +224,7 @@ const CourseDetails = () => {
             {course.prerequisites && course.prerequisites.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle>المتطلبات المسبقة</CardTitle>
+                  <CardTitle>Prerequisites</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
@@ -244,27 +244,27 @@ const CourseDetails = () => {
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>تفاصيل الكورس</CardTitle>
+                <CardTitle>Course Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">المستوى:</span>
+                  <span className="text-muted-foreground">Level:</span>
                   <Badge variant="outline">{course.level}</Badge>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">المدة:</span>
+                  <span className="text-muted-foreground">Duration:</span>
                   <span className="font-medium">{course.duration}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">عدد الطلاب:</span>
+                  <span className="text-muted-foreground">Students:</span>
                   <span className="font-medium">{course.students}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">التقييم:</span>
+                  <span className="text-muted-foreground">Rating:</span>
                   <span className="font-medium">⭐ {course.rating}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">الفئة:</span>
+                  <span className="text-muted-foreground">Category:</span>
                   <span className="font-medium">{course.category}</span>
                 </div>
               </CardContent>
@@ -272,7 +272,7 @@ const CourseDetails = () => {
             
             <Card>
               <CardHeader>
-                <CardTitle>المدرس</CardTitle>
+                <CardTitle>Instructor</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center">
@@ -280,7 +280,7 @@ const CourseDetails = () => {
                     <span className="text-2xl">👨‍🏫</span>
                   </div>
                   <h3 className="font-medium">{course.instructor}</h3>
-                  <p className="text-sm text-muted-foreground">مدرس متخصص</p>
+                  <p className="text-sm text-muted-foreground">Specialized Instructor</p>
                 </div>
               </CardContent>
             </Card>
@@ -291,7 +291,7 @@ const CourseDetails = () => {
               onClick={() => navigate('/courses')}
             >
               <ArrowRight className="w-4 h-4 mr-2" />
-              العودة إلى قائمة الكورسات
+              Back to Courses
             </Button>
           </div>
         </div>

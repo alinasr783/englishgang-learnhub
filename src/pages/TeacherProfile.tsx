@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Star, MapPin, Clock, Award, Languages, ArrowRight } from 'lucide-react';
+import { Star, MapPin, Award, ArrowRight } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -15,8 +15,6 @@ interface Teacher {
   rating: number;
   reviews: number;
   hourly_rate: number;
-  experience: number;
-  languages: string[];
   image_url: string | null;
   is_online: boolean;
   bio: string | null;
@@ -51,8 +49,8 @@ const TeacherProfile = () => {
       setTeacher(data);
     } catch (error) {
       toast({
-        title: "خطأ",
-        description: "فشل في جلب بيانات المعلم",
+        title: "Error",
+        description: "Failed to fetch teacher data",
         variant: "destructive",
       });
       navigate('/teachers');
@@ -62,10 +60,7 @@ const TeacherProfile = () => {
   };
 
   const handleBookLesson = () => {
-    toast({
-      title: "سيتم إضافة نظام الحجز قريباً",
-      description: "نعمل على تطوير نظام حجز الدروس",
-    });
+    navigate(`/booking?teacher=${teacher?.id}`);
   };
 
   if (loading) {
@@ -73,7 +68,7 @@ const TeacherProfile = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4">جاري التحميل...</p>
+          <p className="mt-4">Loading...</p>
         </div>
       </div>
     );
@@ -83,9 +78,9 @@ const TeacherProfile = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">المعلم غير موجود</h2>
+          <h2 className="text-2xl font-bold mb-4">Teacher Not Found</h2>
           <Button onClick={() => navigate('/teachers')}>
-            العودة إلى قائمة المعلمين
+            Back to Teachers
           </Button>
         </div>
       </div>
@@ -123,28 +118,15 @@ const TeacherProfile = () => {
                     <div className="flex items-center gap-1">
                       <Star className="w-5 h-5 text-yellow-500 fill-current" />
                       <span className="font-medium">{teacher.rating}</span>
-                      <span className="text-muted-foreground">({teacher.reviews} تقييم)</span>
-                    </div>
-                    
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-5 h-5 text-primary" />
-                      <span>{teacher.experience} سنة خبرة</span>
+                      <span className="text-muted-foreground">({teacher.reviews} reviews)</span>
                     </div>
                     
                     <div className="flex items-center gap-1">
                       <MapPin className="w-5 h-5 text-secondary" />
                       <Badge variant={teacher.is_online ? "default" : "secondary"}>
-                        {teacher.is_online ? "متاح أونلاين" : "غير متاح"}
+                        {teacher.is_online ? "Available Online" : "Unavailable"}
                       </Badge>
                     </div>
-                  </div>
-                  
-                  <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-6">
-                    {teacher.languages.map((language, index) => (
-                      <Badge key={index} variant="outline">
-                        {language}
-                      </Badge>
-                    ))}
                   </div>
                   
                   {teacher.bio && (
@@ -158,14 +140,14 @@ const TeacherProfile = () => {
             <div className="lg:col-span-1">
               <Card className="sticky top-24">
                 <CardHeader>
-                  <CardTitle className="text-center">احجز درسك الآن</CardTitle>
+                  <CardTitle className="text-center">Book Your Lesson</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-primary">
-                      {teacher.hourly_rate} ج.م
+                      {teacher.hourly_rate} EGP
                     </div>
-                    <div className="text-muted-foreground">لكل ساعة</div>
+                    <div className="text-muted-foreground">per hour</div>
                   </div>
                   
                   <Separator />
@@ -176,11 +158,11 @@ const TeacherProfile = () => {
                     onClick={handleBookLesson}
                     disabled={!teacher.is_online}
                   >
-                    {teacher.is_online ? 'احجز درس تجريبي' : 'غير متاح حالياً'}
+                    {teacher.is_online ? 'Book Trial Lesson' : 'Currently Unavailable'}
                   </Button>
                   
                   <div className="text-xs text-center text-muted-foreground">
-                    درس تجريبي مجاني لمدة 30 دقيقة
+                    Free 30-minute trial lesson
                   </div>
                 </CardContent>
               </Card>
@@ -199,7 +181,7 @@ const TeacherProfile = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Award className="w-5 h-5" />
-                    التعليم
+                    Education
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -214,7 +196,7 @@ const TeacherProfile = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Award className="w-5 h-5" />
-                    الشهادات والمؤهلات
+                    Certifications
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -230,49 +212,27 @@ const TeacherProfile = () => {
               </Card>
             )}
             
-            {/* Languages */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Languages className="w-5 h-5" />
-                  اللغات المتاحة
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {teacher.languages.map((language, index) => (
-                    <Badge key={index} variant="secondary" className="text-sm">
-                      {language}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
           </div>
           
           {/* Sidebar */}
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>معلومات سريعة</CardTitle>
+                <CardTitle>Quick Info</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">سنوات الخبرة:</span>
-                  <span className="font-medium">{teacher.experience} سنة</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">التقييم:</span>
+                  <span className="text-muted-foreground">Rating:</span>
                   <span className="font-medium">⭐ {teacher.rating}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">عدد التقييمات:</span>
+                  <span className="text-muted-foreground">Reviews:</span>
                   <span className="font-medium">{teacher.reviews}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">الحالة:</span>
+                  <span className="text-muted-foreground">Status:</span>
                   <Badge variant={teacher.is_online ? "default" : "secondary"}>
-                    {teacher.is_online ? "متاح" : "غير متاح"}
+                    {teacher.is_online ? "Available" : "Unavailable"}
                   </Badge>
                 </div>
               </CardContent>
@@ -284,7 +244,7 @@ const TeacherProfile = () => {
               onClick={() => navigate('/teachers')}
             >
               <ArrowRight className="w-4 h-4 mr-2" />
-              العودة إلى قائمة المعلمين
+              Back to Teachers
             </Button>
           </div>
         </div>

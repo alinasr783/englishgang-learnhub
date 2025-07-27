@@ -139,6 +139,7 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Santiago Orozco", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
