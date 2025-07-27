@@ -21,68 +21,71 @@ interface TeacherCardProps {
 
 const TeacherCard = ({ teacher }: TeacherCardProps) => {
   return (
-    <Card className="group hover:shadow-glow transition-all duration-300 hover:-translate-y-1 card-gradient border-border/50">
-      <CardContent className="p-4 sm:p-6">
-        <div className="flex items-start space-x-3 sm:space-x-4">
+    <Card className="group overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] border-0 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      
+      <CardContent className="relative p-6">
+        <div className="flex flex-col items-center text-center space-y-4">
           {/* Profile Image */}
-          <div className="relative flex-shrink-0">
-            <img
-              src={teacher.image}
-              alt={teacher.name}
-              className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-primary/20"
-            />
+          <div className="relative">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-primary/20 group-hover:border-primary/40 transition-all duration-300 group-hover:shadow-lg">
+              <img
+                src={teacher.image}
+                alt={teacher.name}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            </div>
             {teacher.isOnline && (
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-learning-green rounded-full border-2 border-background flex items-center justify-center">
-                <div className="w-2 h-2 bg-white rounded-full"></div>
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-learning-green rounded-full border-3 border-background flex items-center justify-center shadow-lg">
+                <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></div>
               </div>
             )}
           </div>
 
           {/* Teacher Info */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+          <div className="space-y-3 w-full">
+            <div>
+              <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-1">
                 {teacher.name}
               </h3>
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 text-sm px-3 py-1">
                 {teacher.specialization}
               </Badge>
             </div>
 
             {/* Rating and Reviews */}
-            <div className="flex items-center space-x-2 mb-3">
-              <div className="flex items-center space-x-1">
+            <div className="flex items-center justify-center space-x-3">
+              <div className="flex items-center space-x-1 bg-learning-orange/10 px-3 py-1.5 rounded-full">
                 <Star className="w-4 h-4 fill-learning-orange text-learning-orange" />
-                <span className="text-sm font-medium">{teacher.rating}</span>
+                <span className="text-sm font-semibold text-learning-orange">{teacher.rating}</span>
               </div>
-              <span className="text-sm text-muted-foreground">
-                ({teacher.reviews} reviews)
+              <span className="text-sm text-muted-foreground font-medium">
+                {teacher.reviews} reviews
               </span>
             </div>
 
             {/* Rate */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-right">
-                <span className="text-lg font-bold text-primary">{teacher.hourlyRate} EGP</span>
-                <span className="text-sm text-muted-foreground">/hour</span>
+            <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg p-3 border border-primary/10">
+              <div className="text-center">
+                <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  {teacher.hourlyRate} EGP
+                </span>
+                <span className="text-sm text-muted-foreground block">/hour</span>
               </div>
             </div>
 
-
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-              <Button variant="outline" size="sm" className="flex-1 text-xs sm:text-sm" asChild>
+            <div className="flex flex-col space-y-2 pt-2">
+              <Button variant="outline" className="w-full group/btn border-primary/20 hover:border-primary/40 hover:bg-primary/5" asChild>
                 <Link to={`/teachers/${teacher.id}`}>
-                  <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                  <span className="hidden sm:inline">View Profile</span>
-                  <span className="sm:hidden">Profile</span>
+                  <Users className="w-4 h-4 mr-2 group-hover/btn:scale-110 transition-transform" />
+                  View Profile
                 </Link>
               </Button>
-              <Button size="sm" className="flex-1 text-xs sm:text-sm" asChild>
+              <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all duration-300" asChild>
                 <Link to={`/booking?teacher=${teacher.id}`}>
-                  <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                  <span className="hidden sm:inline">Book Lesson</span>
-                  <span className="sm:hidden">Book</span>
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Book Lesson
                 </Link>
               </Button>
             </div>
