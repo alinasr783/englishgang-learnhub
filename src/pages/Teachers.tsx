@@ -42,7 +42,7 @@ const Teachers = () => {
         rating: teacher.rating || 0,
         reviews: teacher.reviews || 0,
         hourlyRate: teacher.hourly_rate,
-        experience: `${teacher.experience} سنوات خبرة`,
+        experience: `${teacher.experience} years experience`,
         languages: teacher.languages || [],
         image: teacher.image_url || teacherSarah, // fallback to default image
         isOnline: teacher.is_online || false,
@@ -52,45 +52,45 @@ const Teachers = () => {
     } catch (error) {
       console.error('Error fetching teachers:', error);
       toast({
-        title: "خطأ",
-        description: "فشل في تحميل بيانات المعلمين",
+        title: "Error",
+        description: "Failed to load teachers data",
         variant: "destructive",
       });
       // Fallback to sample data
       setTeachers([
         {
           id: "1",
-          name: "سارة أحمد",
-          specialization: "محادثة وقواعد",
+          name: "Sarah Ahmed",
+          specialization: "Conversation & Grammar",
           rating: 4.9,
           reviews: 127,
           hourlyRate: 150, // EGP
-          experience: "5 سنوات خبرة",
-          languages: ["العربية", "الإنجليزية", "الفرنسية"],
+          experience: "5 years experience",
+          languages: ["Arabic", "English", "French"],
           image: teacherSarah,
           isOnline: true,
         },
         {
           id: "2",
-          name: "مايكل جونسون",
+          name: "Michael Johnson",
           specialization: "IELTS & TOEFL",
           rating: 4.8,
           reviews: 203,
           hourlyRate: 200, // EGP
-          experience: "8 سنوات خبرة",
-          languages: ["الإنجليزية", "الإسبانية"],
+          experience: "8 years experience",
+          languages: ["English", "Spanish"],
           image: teacherMichael,
           isOnline: false,
         },
         {
           id: "3",
-          name: "إيما سميث",
-          specialization: "إنجليزية الأعمال",
+          name: "Emma Smith",
+          specialization: "Business English",
           rating: 4.7,
           reviews: 89,
           hourlyRate: 180, // EGP
-          experience: "3 سنوات خبرة",
-          languages: ["الإنجليزية", "الألمانية"],
+          experience: "3 years experience",
+          languages: ["English", "German"],
           image: teacherEmma,
           isOnline: true,
         },
@@ -124,10 +124,10 @@ const Teachers = () => {
       <div className="hero-gradient py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up">
-            اختر معلمك المثالي
+            Choose Your Perfect Teacher
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto animate-slide-up">
-            تعلم الإنجليزية مع أفضل المعلمين المؤهلين من جميع أنحاء العالم
+            Learn English with the best qualified teachers from around the world
           </p>
         </div>
       </div>
@@ -140,7 +140,7 @@ const Teachers = () => {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
-                placeholder="ابحث عن معلم أو تخصص..."
+                placeholder="Search for teacher or specialization..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -150,25 +150,25 @@ const Teachers = () => {
             {/* Sort */}
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="ترتيب حسب" />
+                <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="rating">الأعلى تقييماً</SelectItem>
-                <SelectItem value="reviews">الأكثر تقييماً</SelectItem>
-                <SelectItem value="price-low">السعر (الأقل أولاً)</SelectItem>
-                <SelectItem value="price-high">السعر (الأعلى أولاً)</SelectItem>
+                <SelectItem value="rating">Highest Rated</SelectItem>
+                <SelectItem value="reviews">Most Reviewed</SelectItem>
+                <SelectItem value="price-low">Price (Low to High)</SelectItem>
+                <SelectItem value="price-high">Price (High to Low)</SelectItem>
               </SelectContent>
             </Select>
 
             {/* Filter */}
             <Select value={filterBy} onValueChange={setFilterBy}>
               <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="فلترة" />
+                <SelectValue placeholder="Filter" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">جميع المعلمين</SelectItem>
-                <SelectItem value="online">متصل الآن</SelectItem>
-                <SelectItem value="offline">غير متصل</SelectItem>
+                <SelectItem value="all">All Teachers</SelectItem>
+                <SelectItem value="online">Online Now</SelectItem>
+                <SelectItem value="offline">Offline</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -177,7 +177,7 @@ const Teachers = () => {
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-muted-foreground">
-            تم العثور على <span className="font-semibold text-foreground">{filteredTeachers.length}</span> معلم
+            Found <span className="font-semibold text-foreground">{filteredTeachers.length}</span> teachers
           </p>
         </div>
 
@@ -210,8 +210,8 @@ const Teachers = () => {
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
               <Search className="w-8 h-8 text-muted-foreground" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">لم يتم العثور على نتائج</h3>
-            <p className="text-muted-foreground mb-4">جرب البحث بكلمات مختلفة أو غير المرشحات</p>
+            <h3 className="text-xl font-semibold mb-2">No results found</h3>
+            <p className="text-muted-foreground mb-4">Try searching with different words or change filters</p>
             <Button
               variant="outline"
               onClick={() => {
@@ -220,7 +220,7 @@ const Teachers = () => {
                 setSortBy("rating");
               }}
             >
-              إعادة تعيين الفلاتر
+              Reset Filters
             </Button>
           </div>
         )}

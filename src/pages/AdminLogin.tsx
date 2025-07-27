@@ -100,8 +100,8 @@ const AdminLogin = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">تسجيل دخول المدير</CardTitle>
-          <CardDescription>ادخل بياناتك للوصول إلى لوحة التحكم</CardDescription>
+          <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
+          <CardDescription>Enter your credentials to access the control panel</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">

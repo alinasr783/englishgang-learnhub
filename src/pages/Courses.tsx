@@ -166,10 +166,10 @@ const Courses = () => {
       <div className="hero-gradient py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up">
-            دوراتنا التعليمية
+            Our Educational Courses
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto animate-slide-up">
-            اختر من مجموعة متنوعة من الدورات المصممة خصيصاً لتحقيق أهدافك التعليمية
+            Choose from a variety of courses designed specifically to achieve your educational goals
           </p>
         </div>
       </div>
@@ -182,7 +182,7 @@ const Courses = () => {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
-                placeholder="ابحث عن دورة..."
+                placeholder="Search for course..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"

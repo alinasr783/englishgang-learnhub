@@ -58,7 +58,7 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
                 <span className="text-sm font-medium">{teacher.rating}</span>
               </div>
               <span className="text-sm text-muted-foreground">
-                ({teacher.reviews} تقييم)
+                ({teacher.reviews} reviews)
               </span>
             </div>
 
@@ -70,7 +70,7 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
               </div>
               <div className="text-right">
                 <span className="text-lg font-bold text-primary">{teacher.hourlyRate} ج.م</span>
-                <span className="text-sm text-muted-foreground">/ساعة</span>
+                <span className="text-sm text-muted-foreground">/hour</span>
               </div>
             </div>
 
@@ -88,13 +88,13 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
               <Button variant="outline" size="sm" className="flex-1" asChild>
                 <Link to={`/teachers/${teacher.id}`}>
                   <Users className="w-4 h-4 mr-1" />
-                  عرض الملف
+                  View Profile
                 </Link>
               </Button>
               <Button size="sm" className="flex-1" asChild>
                 <Link to={`/booking?teacher=${teacher.id}`}>
                   <BookOpen className="w-4 h-4 mr-1" />
-                  احجز درس
+                  Book Lesson
                 </Link>
               </Button>
             </div>

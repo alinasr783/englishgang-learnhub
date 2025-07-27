@@ -28,37 +28,37 @@ import teacherEmma from "@/assets/teacher-emma.jpg";
 const featuredTeachers = [
   {
     id: "1",
-    name: "سارة أحمد",
-    specialization: "محادثة وقواعد",
+    name: "Sarah Ahmed",
+    specialization: "Conversation & Grammar",
     rating: 4.9,
     reviews: 127,
     hourlyRate: 150,
-    experience: "5 سنوات خبرة",
-    languages: ["العربية", "الإنجليزية", "الفرنسية"],
+    experience: "5 years experience",
+    languages: ["Arabic", "English", "French"],
     image: teacherSarah,
     isOnline: true,
   },
   {
     id: "2",
-    name: "مايكل جونسون",
+    name: "Michael Johnson",
     specialization: "IELTS & TOEFL",
     rating: 4.8,
     reviews: 203,
     hourlyRate: 200,
-    experience: "8 سنوات خبرة",
-    languages: ["الإنجليزية", "الإسبانية"],
+    experience: "8 years experience",
+    languages: ["English", "Spanish"],
     image: teacherMichael,
     isOnline: false,
   },
   {
     id: "3",
-    name: "إيما سميث",
-    specialization: "إنجليزية الأعمال",
+    name: "Emma Smith",
+    specialization: "Business English",
     rating: 4.7,
     reviews: 89,
     hourlyRate: 180,
-    experience: "3 سنوات خبرة",
-    languages: ["الإنجليزية", "الألمانية"],
+    experience: "3 years experience",
+    languages: ["English", "German"],
     image: teacherEmma,
     isOnline: true,
   },
@@ -74,13 +74,13 @@ const Index = () => {
             {/* Hero Content */}
             <div className="text-white animate-slide-up">
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                تعلم الإنجليزية مع
+                Learn English with
                 <span className="block text-transparent bg-gradient-to-r from-white to-blue-200 bg-clip-text">
-                  أفضل المعلمين
+                  The Best Teachers
                 </span>
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-white/90 leading-relaxed">
-                احجز دروساً فردية مع معلمين مؤهلين من جميع أنحاء العالم. تعلم في الوقت المناسب لك وحقق أهدافك في تعلم اللغة الإنجليزية.
+                Book individual lessons with qualified teachers from around the world. Learn at your own pace and achieve your English learning goals.
               </p>
               
               {/* CTA Buttons */}
@@ -88,13 +88,13 @@ const Index = () => {
                 <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-lg px-8 py-4" asChild>
                   <Link to="/teachers">
                     <Users className="w-5 h-5 mr-2" />
-                    اختر معلمك الآن
+                    Choose Your Teacher
                   </Link>
                 </Button>
                 <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-lg px-8 py-4" asChild>
                   <Link to="/courses">
                     <Play className="w-5 h-5 mr-2" />
-                    شاهد الدورات
+                    View Courses
                   </Link>
                 </Button>
               </div>
@@ -103,15 +103,15 @@ const Index = () => {
               <div className="grid grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold mb-1">500+</div>
-                  <div className="text-white/80 text-sm">معلم مؤهل</div>
+                  <div className="text-white/80 text-sm">Qualified Teachers</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold mb-1">10k+</div>
-                  <div className="text-white/80 text-sm">طالب سعيد</div>
+                  <div className="text-white/80 text-sm">Happy Students</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold mb-1">4.9</div>
-                  <div className="text-white/80 text-sm">تقييم المنصة</div>
+                  <div className="text-white/80 text-sm">Platform Rating</div>
                 </div>
               </div>
             </div>
@@ -129,14 +129,14 @@ const Index = () => {
                   <Star className="w-5 h-5 text-learning-brown fill-current" />
                   <span className="font-semibold">4.9/5</span>
                 </div>
-                <div className="text-sm text-muted-foreground">من 2000+ تقييم</div>
+                <div className="text-sm text-muted-foreground">From 2000+ reviews</div>
               </div>
               <div className="absolute -bottom-4 -left-4 bg-learning-olive text-white rounded-xl p-4 shadow-card animate-float" style={{ animationDelay: '1s' }}>
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="w-5 h-5" />
                   <span className="font-semibold">95%</span>
                 </div>
-                <div className="text-sm opacity-90">معدل النجاح</div>
+                <div className="text-sm opacity-90">Success Rate</div>
               </div>
             </div>
           </div>
@@ -147,9 +147,9 @@ const Index = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-scale-in">
-            <h2 className="text-4xl font-bold mb-4">لماذا تختار EnglishGang؟</h2>
+            <h2 className="text-4xl font-bold mb-4">Why Choose EnglishGang?</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              نوفر لك أفضل تجربة تعلم مخصصة لاحتياجاتك وأهدافك الشخصية
+              We provide you with the best personalized learning experience tailored to your needs and goals
             </p>
           </div>
 
@@ -157,33 +157,33 @@ const Index = () => {
             {[
               {
                 icon: <Users className="w-8 h-8" />,
-                title: "معلمين مؤهلين",
-                description: "معلمين معتمدين مع خبرة واسعة في تدريس اللغة الإنجليزية"
+                title: "Qualified Teachers",
+                description: "Certified teachers with extensive experience in teaching English"
               },
               {
                 icon: <Clock className="w-8 h-8" />,
-                title: "مرونة في المواعيد",
-                description: "احجز دروسك في الوقت المناسب لك على مدار 24 ساعة"
+                title: "Flexible Schedule",
+                description: "Book your lessons at the time that suits you 24/7"
               },
               {
                 icon: <Target className="w-8 h-8" />,
-                title: "دروس مخصصة",
-                description: "خطط دراسية مصممة خصيصاً لمستواك وأهدافك"
+                title: "Personalized Lessons",
+                description: "Study plans designed specifically for your level and goals"
               },
               {
                 icon: <MessageCircle className="w-8 h-8" />,
-                title: "محادثة تفاعلية",
-                description: "ممارسة المحادثة الحقيقية مع متحدثين أصليين"
+                title: "Interactive Conversation",
+                description: "Practice real conversation with native speakers"
               },
               {
                 icon: <Award className="w-8 h-8" />,
-                title: "شهادات معتمدة",
-                description: "احصل على شهادات إتمام معتمدة دولياً"
+                title: "Certified Credentials",
+                description: "Get internationally recognized completion certificates"
               },
               {
                 icon: <Zap className="w-8 h-8" />,
-                title: "تقدم سريع",
-                description: "تحسن ملحوظ في مستواك خلال أسابيع قليلة"
+                title: "Fast Progress",
+                description: "Noticeable improvement in your level within a few weeks"
               }
             ].map((feature, index) => (
               <Card key={index} className="group hover:shadow-glow transition-all duration-300 hover:-translate-y-1 card-gradient">
@@ -204,9 +204,9 @@ const Index = () => {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">أفضل معلمينا</h2>
+            <h2 className="text-4xl font-bold mb-4">Our Best Teachers</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              تعرف على معلمينا المتميزين الحاصلين على أعلى التقييمات من الطلاب
+              Meet our outstanding teachers who have earned the highest ratings from students
             </p>
           </div>
 
@@ -225,7 +225,7 @@ const Index = () => {
           <div className="text-center">
             <Button size="lg" variant="outline" asChild>
               <Link to="/teachers">
-                عرض جميع المعلمين
+                View All Teachers
                 <ArrowRight className="w-5 h-5 mr-2" />
               </Link>
             </Button>
@@ -237,9 +237,9 @@ const Index = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">كيف تبدأ رحلتك؟</h2>
+            <h2 className="text-4xl font-bold mb-4">How Do You Start Your Journey?</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              ثلاث خطوات بسيطة للبدء في تعلم الإنجليزية معنا
+              Three simple steps to start learning English with us
             </p>
           </div>
 
@@ -247,18 +247,18 @@ const Index = () => {
             {[
               {
                 step: "1",
-                title: "اختر معلمك",
-                description: "تصفح قائمة معلمينا واختر المعلم المناسب لأهدافك ومستواك"
+                title: "Choose Your Teacher",
+                description: "Browse our teacher list and select the teacher that suits your goals and level"
               },
               {
                 step: "2",
-                title: "احجز درسك",
-                description: "اختر الموعد المناسب لك واحجز درسك الأول بسهولة"
+                title: "Book Your Lesson",
+                description: "Choose the time that suits you and easily book your first lesson"
               },
               {
                 step: "3",
-                title: "ابدأ التعلم",
-                description: "انضم للدرس وابدأ رحلتك في تحسين مستواك في اللغة الإنجليزية"
+                title: "Start Learning",
+                description: "Join the lesson and begin your journey to improve your English level"
               }
             ].map((step, index) => (
               <div key={index} className="text-center animate-scale-in" style={{ animationDelay: `${index * 0.3}s` }}>
@@ -283,21 +283,21 @@ const Index = () => {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto text-white">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              ابدأ رحلتك في تعلم الإنجليزية اليوم
+              Start Your English Learning Journey Today
             </h2>
             <p className="text-xl mb-8 text-white/90">
-              انضم إلى آلاف الطلاب الذين حققوا أهدافهم في تعلم اللغة الإنجليزية معنا
+              Join thousands of students who have achieved their English learning goals with us
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-lg px-8 py-4" asChild>
                 <Link to="/teachers">
                   <BookOpen className="w-5 h-5 mr-2" />
-                  ابدأ الآن مجاناً
+                  Start Now for Free
                 </Link>
               </Button>
               <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-lg px-8 py-4" asChild>
                 <Link to="/about">
-                  تعرف على المزيد
+                  Learn More
                 </Link>
               </Button>
             </div>

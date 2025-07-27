@@ -28,16 +28,16 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-foreground hover:text-primary transition-colors duration-200">
-              الرئيسية
+              Home
             </Link>
             <Link to="/teachers" className="text-foreground hover:text-primary transition-colors duration-200">
-              المعلمين
+              Teachers
             </Link>
             <Link to="/courses" className="text-foreground hover:text-primary transition-colors duration-200">
-              الدورات
+              Courses
             </Link>
             <Link to="/about" className="text-foreground hover:text-primary transition-colors duration-200">
-              من نحن
+              About
             </Link>
           </nav>
 
@@ -52,7 +52,7 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
             <Button asChild className="shadow-card">
-              <Link to="/booking">احجز الآن</Link>
+              <Link to="/booking">Book Now</Link>
             </Button>
           </div>
 
@@ -76,28 +76,28 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
                 className="block px-3 py-2 text-foreground hover:bg-secondary rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                الرئيسية
+                Home
               </Link>
               <Link
                 to="/teachers"
                 className="block px-3 py-2 text-foreground hover:bg-secondary rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                المعلمين
+                Teachers
               </Link>
               <Link
                 to="/courses"
                 className="block px-3 py-2 text-foreground hover:bg-secondary rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                الدورات
+                Courses
               </Link>
               <Link
                 to="/about"
                 className="block px-3 py-2 text-foreground hover:bg-secondary rounded-md transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                من نحن
+                About
               </Link>
               <div className="flex items-center justify-between px-3 py-2">
                 <Button
@@ -110,7 +110,7 @@ const Header = ({ isDark, toggleTheme }: HeaderProps) => {
                 </Button>
                 <div className="flex justify-end">
                   <Button size="sm" asChild>
-                    <Link to="/booking">احجز الآن</Link>
+                    <Link to="/booking">Book Now</Link>
                   </Button>
                 </div>
               </div>

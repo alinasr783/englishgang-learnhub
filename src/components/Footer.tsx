@@ -10,11 +10,11 @@ const Footer = () => {
             to="/admin-login" 
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
-            هل أنت مدير الموقع؟
+            Are you the admin?
           </Link>
         </div>
         <div className="text-center text-muted-foreground text-sm mt-4">
-          © 2024 منصة التعلم. جميع الحقوق محفوظة.
+          © 2024 Learning Platform. All rights reserved.
         </div>
       </div>
     </footer>

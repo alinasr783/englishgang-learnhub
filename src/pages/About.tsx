@@ -26,10 +26,10 @@ const About = () => {
       <div className="hero-gradient py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-up">
-            من نحن
+            About Us
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto animate-slide-up">
-            نحن فريق متخصص في تعليم اللغة الإنجليزية بأحدث الطرق والتقنيات
+            We are a team specialized in teaching English using the latest methods and technologies
           </p>
         </div>
       </div>
@@ -37,34 +37,34 @@ const About = () => {
       <div className="container mx-auto px-4 py-16">
         {/* Our Story Section */}
         <div className="text-center mb-16 animate-scale-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">قصتنا</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Story</h2>
           <div className="max-w-4xl mx-auto">
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              بدأت EnglishGang.pro من فكرة بسيطة: جعل تعلم اللغة الإنجليزية أسهل وأكثر متعة وفعالية. 
-              منذ تأسيسنا في عام 2020، ساعدنا آلاف الطلاب في جميع أنحاء العالم العربي على تحقيق 
-              أهدافهم في تعلم اللغة الإنجليزية.
+              EnglishGang.pro started from a simple idea: making English learning easier, more enjoyable, and effective. 
+              Since our founding in 2020, we have helped thousands of students across the Arab world achieve 
+              their English learning goals.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              نؤمن بأن التعلم يجب أن يكون تجربة شخصية وتفاعلية، لذلك نقدم دورات مصممة خصيصاً 
-              لتناسب احتياجاتك ومستواك، مع معلمين مؤهلين وخبراء في مجالهم.
+              We believe that learning should be a personal and interactive experience, so we offer courses designed specifically 
+              to suit your needs and level, with qualified teachers and experts in their field.
             </p>
           </div>
         </div>
 
         {/* Values Section */}
         <div className="mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">قيمنا</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="text-center shadow-card border-0 hover:shadow-glow transition-all duration-300">
               <CardHeader>
                 <div className="w-16 h-16 mx-auto bg-learning-olive/10 rounded-full flex items-center justify-center mb-4">
                   <Heart className="w-8 h-8 text-learning-olive" />
                 </div>
-                <CardTitle>الجودة</CardTitle>
+                <CardTitle>Quality</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-center">
-                  نقدم أعلى معايير الجودة في التعليم مع محتوى متطور ومعلمين مؤهلين
+                  We provide the highest quality standards in education with advanced content and qualified teachers
                 </CardDescription>
               </CardContent>
             </Card>
@@ -74,11 +74,11 @@ const About = () => {
                 <div className="w-16 h-16 mx-auto bg-learning-brown/10 rounded-full flex items-center justify-center mb-4">
                   <Zap className="w-8 h-8 text-learning-brown" />
                 </div>
-                <CardTitle>الابتكار</CardTitle>
+                <CardTitle>Innovation</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-center">
-                  نستخدم أحدث التقنيات والطرق التعليمية لجعل التعلم أكثر فعالية ومتعة
+                  We use the latest technologies and teaching methods to make learning more effective and enjoyable
                 </CardDescription>
               </CardContent>
             </Card>
@@ -88,11 +88,11 @@ const About = () => {
                 <div className="w-16 h-16 mx-auto bg-learning-beige/20 rounded-full flex items-center justify-center mb-4">
                   <Shield className="w-8 h-8 text-learning-olive" />
                 </div>
-                <CardTitle>الثقة</CardTitle>
+                <CardTitle>Trust</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-center">
-                  نبني علاقات طويلة المدى مع طلابنا قائمة على الثقة والاحترام المتبادل
+                  We build long-term relationships with our students based on trust and mutual respect
                 </CardDescription>
               </CardContent>
             </Card>
@@ -101,23 +101,23 @@ const About = () => {
 
         {/* Statistics Section */}
         <div className="bg-card rounded-2xl shadow-card p-8 md:p-12 mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">إنجازاتنا بالأرقام</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Achievements in Numbers</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-primary mb-2">5000+</div>
-              <div className="text-muted-foreground">طالب نجح</div>
+              <div className="text-muted-foreground">Successful Students</div>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-primary mb-2">50+</div>
-              <div className="text-muted-foreground">معلم خبير</div>
+              <div className="text-muted-foreground">Expert Teachers</div>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-primary mb-2">25+</div>
-              <div className="text-muted-foreground">دورة متخصصة</div>
+              <div className="text-muted-foreground">Specialized Courses</div>
             </div>
             <div className="text-center">
               <div className="text-4xl md:text-5xl font-bold text-primary mb-2">98%</div>
-              <div className="text-muted-foreground">معدل الرضا</div>
+              <div className="text-muted-foreground">Satisfaction Rate</div>
             </div>
           </div>
         </div>
@@ -129,12 +129,12 @@ const About = () => {
               <div className="w-16 h-16 bg-learning-olive/10 rounded-full flex items-center justify-center mb-4">
                 <Target className="w-8 h-8 text-learning-olive" />
               </div>
-              <CardTitle className="text-2xl">رسالتنا</CardTitle>
+              <CardTitle className="text-2xl">Our Mission</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base leading-relaxed">
-                نسعى لتقديم تعليم متميز للغة الإنجليزية يمكن الطلاب من تحقيق أهدافهم الشخصية 
-                والمهنية من خلال منهجية تعليمية متطورة وبيئة تعلم داعمة ومحفزة.
+                We strive to provide excellent English education that enables students to achieve their personal 
+                and professional goals through advanced teaching methodology and a supportive and motivating learning environment.
               </CardDescription>
             </CardContent>
           </Card>
@@ -144,12 +144,12 @@ const About = () => {
               <div className="w-16 h-16 bg-learning-brown/10 rounded-full flex items-center justify-center mb-4">
                 <Globe className="w-8 h-8 text-learning-brown" />
               </div>
-              <CardTitle className="text-2xl">رؤيتنا</CardTitle>
+              <CardTitle className="text-2xl">Our Vision</CardTitle>
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base leading-relaxed">
-                أن نكون المنصة الرائدة في تعليم اللغة الإنجليزية في العالم العربي، ونساهم في 
-                بناء جيل متمكن من اللغة الإنجليزية قادر على التواصل والتميز عالمياً.
+                To be the leading platform for English education in the Arab world, and contribute to 
+                building a generation proficient in English capable of communicating and excelling globally.
               </CardDescription>
             </CardContent>
           </Card>
@@ -157,35 +157,35 @@ const About = () => {
 
         {/* Why Choose Us */}
         <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">لماذا تختارنا؟</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12">Why Choose Us?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             <div className="bg-card rounded-xl p-6 shadow-card border-0">
               <BookOpen className="w-12 h-12 text-learning-olive mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-3">منهج متطور</h3>
+              <h3 className="text-xl font-semibold mb-3">Advanced Curriculum</h3>
               <p className="text-muted-foreground">
-                مناهج حديثة ومتطورة تواكب أحدث طرق تعليم اللغات
+                Modern and advanced curricula that keep up with the latest language teaching methods
               </p>
             </div>
             
             <div className="bg-card rounded-xl p-6 shadow-card border-0">
               <Users className="w-12 h-12 text-learning-brown mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-3">معلمون خبراء</h3>
+              <h3 className="text-xl font-semibold mb-3">Expert Teachers</h3>
               <p className="text-muted-foreground">
-                فريق من المعلمين المؤهلين وذوي الخبرة الطويلة في التدريس
+                A team of qualified teachers with extensive experience in teaching
               </p>
             </div>
             
             <div className="bg-card rounded-xl p-6 shadow-card border-0">
               <TrendingUp className="w-12 h-12 text-learning-olive mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-3">نتائج مضمونة</h3>
+              <h3 className="text-xl font-semibold mb-3">Guaranteed Results</h3>
               <p className="text-muted-foreground">
-                برامج مصممة لضمان تحقيق النتائج المرجوة في أقصر وقت ممكن
+                Programs designed to ensure achieving desired results in the shortest time possible
               </p>
             </div>
           </div>
           
           <Button size="lg" className="shadow-hero">
-            ابدأ رحلتك معنا
+            Start Your Journey With Us
             <Star className="mr-2 w-5 h-5" />
           </Button>
         </div>
