@@ -14,7 +14,180 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      courses: {
+        Row: {
+          category: string
+          content_outline: string[] | null
+          created_at: string
+          created_by: string | null
+          description: string
+          duration: string
+          features: string[]
+          id: string
+          image_url: string | null
+          instructor: string
+          level: string
+          prerequisites: string[] | null
+          price: number
+          rating: number | null
+          students: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          content_outline?: string[] | null
+          created_at?: string
+          created_by?: string | null
+          description: string
+          duration: string
+          features: string[]
+          id?: string
+          image_url?: string | null
+          instructor: string
+          level: string
+          prerequisites?: string[] | null
+          price: number
+          rating?: number | null
+          students?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          content_outline?: string[] | null
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          duration?: string
+          features?: string[]
+          id?: string
+          image_url?: string | null
+          instructor?: string
+          level?: string
+          prerequisites?: string[] | null
+          price?: number
+          rating?: number | null
+          students?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          role: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          role?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          role?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      teachers: {
+        Row: {
+          bio: string | null
+          certifications: string[] | null
+          created_at: string
+          created_by: string | null
+          education: string | null
+          experience: number
+          hourly_rate: number
+          id: string
+          image_url: string | null
+          is_online: boolean | null
+          languages: string[]
+          name: string
+          rating: number | null
+          reviews: number | null
+          specialization: string
+          updated_at: string
+        }
+        Insert: {
+          bio?: string | null
+          certifications?: string[] | null
+          created_at?: string
+          created_by?: string | null
+          education?: string | null
+          experience: number
+          hourly_rate: number
+          id?: string
+          image_url?: string | null
+          is_online?: boolean | null
+          languages: string[]
+          name: string
+          rating?: number | null
+          reviews?: number | null
+          specialization: string
+          updated_at?: string
+        }
+        Update: {
+          bio?: string | null
+          certifications?: string[] | null
+          created_at?: string
+          created_by?: string | null
+          education?: string | null
+          experience?: number
+          hourly_rate?: number
+          id?: string
+          image_url?: string | null
+          is_online?: boolean | null
+          languages?: string[]
+          name?: string
+          rating?: number | null
+          reviews?: number | null
+          specialization?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      theme_settings: {
+        Row: {
+          accent_color: string
+          created_at: string
+          created_by: string | null
+          id: string
+          primary_color: string
+          secondary_color: string
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          primary_color?: string
+          secondary_color?: string
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          primary_color?: string
+          secondary_color?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
