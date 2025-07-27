@@ -69,7 +69,7 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
                 <span>{teacher.experience}</span>
               </div>
               <div className="text-right">
-                <span className="text-lg font-bold text-primary">${teacher.hourlyRate}</span>
+                <span className="text-lg font-bold text-primary">{teacher.hourlyRate} ج.م</span>
                 <span className="text-sm text-muted-foreground">/ساعة</span>
               </div>
             </div>

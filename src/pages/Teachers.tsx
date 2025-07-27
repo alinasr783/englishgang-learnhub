@@ -1,57 +1,102 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TeacherCard from "@/components/TeacherCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, Filter, SlidersHorizontal } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import teacherSarah from "@/assets/teacher-sarah.jpg";
 import teacherMichael from "@/assets/teacher-michael.jpg";
 import teacherEmma from "@/assets/teacher-emma.jpg";
 
-// Sample teachers data
-const teachers = [
-  {
-    id: "1",
-    name: "سارة أحمد",
-    specialization: "محادثة وقواعد",
-    rating: 4.9,
-    reviews: 127,
-    hourlyRate: 25,
-    experience: "5 سنوات خبرة",
-    languages: ["العربية", "الإنجليزية", "الفرنسية"],
-    image: teacherSarah,
-    isOnline: true,
-  },
-  {
-    id: "2",
-    name: "مايكل جونسون",
-    specialization: "IELTS & TOEFL",
-    rating: 4.8,
-    reviews: 203,
-    hourlyRate: 35,
-    experience: "8 سنوات خبرة",
-    languages: ["الإنجليزية", "الإسبانية"],
-    image: teacherMichael,
-    isOnline: false,
-  },
-  {
-    id: "3",
-    name: "إيما سميث",
-    specialization: "إنجليزية الأعمال",
-    rating: 4.7,
-    reviews: 89,
-    hourlyRate: 30,
-    experience: "3 سنوات خبرة",
-    languages: ["الإنجليزية", "الألمانية"],
-    image: teacherEmma,
-    isOnline: true,
-  },
-];
 
 const Teachers = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("rating");
   const [filterBy, setFilterBy] = useState("all");
+  const [teachers, setTeachers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchTeachers();
+  }, []);
+
+  const fetchTeachers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('teachers')
+        .select('*')
+        .order('rating', { ascending: false });
+
+      if (error) throw error;
+
+      // Map database data to component format
+      const formattedTeachers = data?.map(teacher => ({
+        id: teacher.id,
+        name: teacher.name,
+        specialization: teacher.specialization,
+        rating: teacher.rating || 0,
+        reviews: teacher.reviews || 0,
+        hourlyRate: teacher.hourly_rate,
+        experience: `${teacher.experience} سنوات خبرة`,
+        languages: teacher.languages || [],
+        image: teacher.image_url || teacherSarah, // fallback to default image
+        isOnline: teacher.is_online || false,
+      })) || [];
+
+      setTeachers(formattedTeachers);
+    } catch (error) {
+      console.error('Error fetching teachers:', error);
+      toast({
+        title: "خطأ",
+        description: "فشل في تحميل بيانات المعلمين",
+        variant: "destructive",
+      });
+      // Fallback to sample data
+      setTeachers([
+        {
+          id: "1",
+          name: "سارة أحمد",
+          specialization: "محادثة وقواعد",
+          rating: 4.9,
+          reviews: 127,
+          hourlyRate: 150, // EGP
+          experience: "5 سنوات خبرة",
+          languages: ["العربية", "الإنجليزية", "الفرنسية"],
+          image: teacherSarah,
+          isOnline: true,
+        },
+        {
+          id: "2",
+          name: "مايكل جونسون",
+          specialization: "IELTS & TOEFL",
+          rating: 4.8,
+          reviews: 203,
+          hourlyRate: 200, // EGP
+          experience: "8 سنوات خبرة",
+          languages: ["الإنجليزية", "الإسبانية"],
+          image: teacherMichael,
+          isOnline: false,
+        },
+        {
+          id: "3",
+          name: "إيما سميث",
+          specialization: "إنجليزية الأعمال",
+          rating: 4.7,
+          reviews: 89,
+          hourlyRate: 180, // EGP
+          experience: "3 سنوات خبرة",
+          languages: ["الإنجليزية", "الألمانية"],
+          image: teacherEmma,
+          isOnline: true,
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredTeachers = teachers
     .filter((teacher) => {
@@ -135,17 +180,27 @@ const Teachers = () => {
         </div>
 
         {/* Teachers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredTeachers.map((teacher, index) => (
-            <div
-              key={teacher.id}
-              className="animate-scale-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <TeacherCard teacher={teacher} />
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="animate-pulse">
+                <div className="bg-muted rounded-lg h-64"></div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredTeachers.map((teacher, index) => (
+              <div
+                key={teacher.id}
+                className="animate-scale-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <TeacherCard teacher={teacher} />
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* No Results */}
         {filteredTeachers.length === 0 && (

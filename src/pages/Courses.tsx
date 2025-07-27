@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,71 +15,119 @@ import {
   Target,
   Award
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
-const courses = [
-  {
-    id: "1",
-    title: "المحادثة الإنجليزية للمبتدئين",
-    description: "تعلم أساسيات المحادثة الإنجليزية من الصفر مع التركيز على النطق الصحيح والثقة في التحدث",
-    level: "مبتدئ",
-    duration: "8 أسابيع",
-    students: 1250,
-    rating: 4.8,
-    price: 299,
-    instructor: "سارة أحمد",
-    image: "/placeholder.svg",
-    category: "محادثة",
-    features: ["دروس تفاعلية", "ممارسة يومية", "شهادة معتمدة"]
-  },
-  {
-    id: "2", 
-    title: "IELTS التحضير الشامل",
-    description: "دورة متكاملة للتحضير لامتحان IELTS مع استراتيجيات مثبتة لتحقيق أعلى الدرجات",
-    level: "متقدم",
-    duration: "12 أسبوع",
-    students: 890,
-    rating: 4.9,
-    price: 599,
-    instructor: "مايكل جونسون",
-    image: "/placeholder.svg",
-    category: "امتحانات",
-    features: ["امتحانات تجريبية", "تقييم شخصي", "ضمان النتيجة"]
-  },
-  {
-    id: "3",
-    title: "إنجليزية الأعمال المتقدمة",
-    description: "طور مهاراتك في الإنجليزية المهنية للتفوق في بيئة العمل والحصول على فرص أفضل",
-    level: "متوسط",
-    duration: "10 أسابيع",
-    students: 675,
-    rating: 4.7,
-    price: 449,
-    instructor: "إيما سميث",
-    image: "/placeholder.svg",
-    category: "أعمال",
-    features: ["مهارات العرض", "كتابة المراسلات", "مقابلات العمل"]
-  },
-  {
-    id: "4",
-    title: "القواعد الإنجليزية المبسطة",
-    description: "اتقن قواعد اللغة الإنجليزية بطريقة سهلة ومفهومة مع تمارين تطبيقية شاملة",
-    level: "مبتدئ",
-    duration: "6 أسابيع",
-    students: 1500,
-    rating: 4.6,
-    price: 199,
-    instructor: "أحمد محمد",
-    image: "/placeholder.svg",
-    category: "قواعد",
-    features: ["شرح مبسط", "تمارين متدرجة", "مراجعة مستمرة"]
-  }
-];
 
 const Courses = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [levelFilter, setLevelFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [sortBy, setSortBy] = useState("rating");
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('courses')
+        .select('*')
+        .order('rating', { ascending: false });
+
+      if (error) throw error;
+
+      // Map database data to component format
+      const formattedCourses = data?.map(course => ({
+        id: course.id,
+        title: course.title,
+        description: course.description,
+        level: course.level,
+        duration: course.duration,
+        students: course.students || 0,
+        rating: course.rating || 0,
+        price: course.price,
+        instructor: course.instructor,
+        image: course.image_url || "/placeholder.svg",
+        category: course.category,
+        features: course.features || [],
+      })) || [];
+
+      setCourses(formattedCourses);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      toast({
+        title: "خطأ",
+        description: "فشل في تحميل بيانات الدورات",
+        variant: "destructive",
+      });
+      // Fallback to sample data
+      setCourses([
+        {
+          id: "1",
+          title: "المحادثة الإنجليزية للمبتدئين",
+          description: "تعلم أساسيات المحادثة الإنجليزية من الصفر مع التركيز على النطق الصحيح والثقة في التحدث",
+          level: "مبتدئ",
+          duration: "8 أسابيع",
+          students: 1250,
+          rating: 4.8,
+          price: 1200, // EGP
+          instructor: "سارة أحمد",
+          image: "/placeholder.svg",
+          category: "محادثة",
+          features: ["دروس تفاعلية", "ممارسة يومية", "شهادة معتمدة"]
+        },
+        {
+          id: "2", 
+          title: "IELTS التحضير الشامل",
+          description: "دورة متكاملة للتحضير لامتحان IELTS مع استراتيجيات مثبتة لتحقيق أعلى الدرجات",
+          level: "متقدم",
+          duration: "12 أسبوع",
+          students: 890,
+          rating: 4.9,
+          price: 2400, // EGP
+          instructor: "مايكل جونسون",
+          image: "/placeholder.svg",
+          category: "امتحانات",
+          features: ["امتحانات تجريبية", "تقييم شخصي", "ضمان النتيجة"]
+        },
+        {
+          id: "3",
+          title: "إنجليزية الأعمال المتقدمة",
+          description: "طور مهاراتك في الإنجليزية المهنية للتفوق في بيئة العمل والحصول على فرص أفضل",
+          level: "متوسط",
+          duration: "10 أسابيع",
+          students: 675,
+          rating: 4.7,
+          price: 1800, // EGP
+          instructor: "إيما سميث",
+          image: "/placeholder.svg",
+          category: "أعمال",
+          features: ["مهارات العرض", "كتابة المراسلات", "مقابلات العمل"]
+        },
+        {
+          id: "4",
+          title: "القواعد الإنجليزية المبسطة",
+          description: "اتقن قواعد اللغة الإنجليزية بطريقة سهلة ومفهومة مع تمارين تطبيقية شاملة",
+          level: "مبتدئ",
+          duration: "6 أسابيع",
+          students: 1500,
+          rating: 4.6,
+          price: 800, // EGP
+          instructor: "أحمد محمد",
+          image: "/placeholder.svg",
+          category: "قواعد",
+          features: ["شرح مبسط", "تمارين متدرجة", "مراجعة مستمرة"]
+        }
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredCourses = courses
     .filter((course) => {
@@ -175,8 +223,17 @@ const Courses = () => {
         </div>
 
         {/* Courses Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredCourses.map((course, index) => (
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="animate-pulse">
+                <div className="bg-muted rounded-lg h-96"></div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredCourses.map((course, index) => (
             <Card 
               key={course.id} 
               className="overflow-hidden hover:shadow-glow transition-all duration-300 animate-scale-in border-0 shadow-card"
@@ -226,7 +283,7 @@ const Courses = () => {
 
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">المدرب: {course.instructor}</span>
-                  <span className="text-2xl font-bold text-primary">{course.price} ريال</span>
+                  <span className="text-2xl font-bold text-primary">{course.price} ج.م</span>
                 </div>
               </CardContent>
 
@@ -237,8 +294,9 @@ const Courses = () => {
                 </Button>
               </CardFooter>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* No Results */}
         {filteredCourses.length === 0 && (
