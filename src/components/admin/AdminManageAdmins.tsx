@@ -248,17 +248,25 @@ const AdminManageAdmins = () => {
               {admins.map((admin) => (
                 <TableRow key={admin.id}>
                   <TableCell className="font-medium">{admin.email}</TableCell>
-                  <TableCell>
-                    {editingId === admin.id ? (
-                      <Input
-                        value={editAdmin.name}
-                        onChange={(e) => setEditAdmin(prev => ({ ...prev, name: e.target.value }))}
-                        placeholder={admin.name || 'اسم المدير'}
-                      />
-                    ) : (
-                      admin.name || <Badge variant="secondary">غير محدد</Badge>
-                    )}
-                  </TableCell>
+                   <TableCell>
+                     {editingId === admin.id ? (
+                       <div className="space-y-2">
+                         <Input
+                           value={editAdmin.name}
+                           onChange={(e) => setEditAdmin(prev => ({ ...prev, name: e.target.value }))}
+                           placeholder={admin.name || 'اسم المدير'}
+                         />
+                         <Input
+                           type="password"
+                           value={editAdmin.password}
+                           onChange={(e) => setEditAdmin(prev => ({ ...prev, password: e.target.value }))}
+                           placeholder="كلمة مرور جديدة (اختياري)"
+                         />
+                       </div>
+                     ) : (
+                       admin.name || <Badge variant="secondary">غير محدد</Badge>
+                     )}
+                   </TableCell>
                   <TableCell>
                     {new Date(admin.created_at).toLocaleDateString('ar-EG')}
                   </TableCell>

@@ -68,50 +68,95 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-white py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Find Your Perfect
-              <span className="block text-primary">English Teacher</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Take personalized lessons with experienced teachers. Improve your English speaking, writing, and conversation skills at your own pace.
-            </p>
-            
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto mb-8">
-              <div className="flex flex-col sm:flex-row gap-4 bg-white rounded-lg p-2 shadow-lg border">
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    placeholder="Search for teachers, specializations..."
-                    className="w-full px-4 py-3 text-gray-700 bg-transparent focus:outline-none"
-                  />
+      <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24 hero-gradient">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-32 h-32 rounded-full border border-white/20"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 rounded-full border border-white/20"></div>
+          <div className="absolute bottom-20 left-1/4 w-40 h-40 rounded-full border border-white/20"></div>
+          <div className="absolute bottom-40 right-10 w-20 h-20 rounded-full border border-white/20"></div>
+        </div>
+        
+        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="text-center lg:text-right">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 animate-slide-up">
+                اكتشف معلم 
+                <span className="block text-white/90 text-gradient">الإنجليزية المثالي</span>
+              </h1>
+              <p className="text-lg sm:text-xl lg:text-2xl text-white/80 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                خذ دروساً شخصية مع معلمين خبراء. حسن مهاراتك في التحدث والكتابة والمحادثة باللغة الإنجليزية بالسرعة التي تناسبك.
+              </p>
+              
+              {/* Search Bar */}
+              <div className="max-w-lg mx-auto lg:mx-0 mb-8 animate-scale-in" style={{ animationDelay: '0.4s' }}>
+                <div className="flex flex-col sm:flex-row gap-3 bg-white/10 backdrop-blur-lg rounded-2xl p-3 border border-white/20 shadow-hero">
+                  <div className="flex-1">
+                    <input
+                      type="text"
+                      placeholder="ابحث عن معلمين، تخصصات..."
+                      className="w-full px-4 py-3 text-white placeholder-white/60 bg-transparent focus:outline-none text-lg"
+                    />
+                  </div>
+                  <Button size="lg" className="px-6 bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-lg font-semibold">
+                    بحث
+                  </Button>
                 </div>
-                <Button size="lg" className="px-8 bg-primary hover:bg-primary/90 text-white">
-                  Search
+              </div>
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 animate-scale-in" style={{ animationDelay: '0.6s' }}>
+                <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-lg px-8 py-4" asChild>
+                  <Link to="/teachers">
+                    <BookOpen className="w-5 h-5 ml-2" />
+                    ابدأ الآن مجاناً
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-lg px-8 py-4">
+                  <Play className="w-5 h-5 ml-2" />
+                  شاهد الفيديو
                 </Button>
               </div>
             </div>
             
-            {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">500+</div>
-                <div className="text-gray-600 text-sm">Expert Teachers</div>
+            {/* Right Content - Stats & Features */}
+            <div className="space-y-6">
+              {/* Quick Stats */}
+              <div className="grid grid-cols-2 gap-4 animate-scale-in" style={{ animationDelay: '0.3s' }}>
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
+                  <div className="text-3xl font-bold text-white mb-2">500+</div>
+                  <div className="text-white/80 text-sm">معلم خبير</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
+                  <div className="text-3xl font-bold text-white mb-2">50+</div>
+                  <div className="text-white/80 text-sm">دولة</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
+                  <div className="text-3xl font-bold text-white mb-2">4.9</div>
+                  <div className="text-white/80 text-sm">متوسط التقييم</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
+                  <div className="text-3xl font-bold text-white mb-2">24/7</div>
+                  <div className="text-white/80 text-sm">دعم متواصل</div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">50+</div>
-                <div className="text-gray-600 text-sm">Countries</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">4.9</div>
-                <div className="text-gray-600 text-sm">Average Rating</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-1">24/7</div>
-                <div className="text-gray-600 text-sm">Support</div>
+              
+              {/* Hero Image */}
+              <div className="relative animate-float">
+                <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-hero">
+                  <img 
+                    src={heroImage} 
+                    alt="English Learning" 
+                    className="w-full h-64 object-cover rounded-2xl shadow-lg"
+                  />
+                  <div className="absolute -top-4 -right-4 bg-accent text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                    🎓 دروس مباشرة
+                  </div>
+                  <div className="absolute -bottom-4 -left-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                    ⭐ تقييم 4.9
+                  </div>
+                </div>
               </div>
             </div>
           </div>
