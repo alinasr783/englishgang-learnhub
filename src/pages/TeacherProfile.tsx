@@ -9,11 +9,18 @@ import { useToast } from '@/hooks/use-toast';
 interface Teacher {
   id: string;
   name: string;
+  title: string;
+  teaches: string;
+  speaks: string;
+  certification: string;
+  from: string;
+  living: string;
+  about: string;
+  since: string;
+  interests: string[];
   hourly_rate: number;
   rating: number;
   reviews: number;
-  country: string;
-  timezone: string;
 }
 
 const TeacherProfile = () => {
@@ -28,12 +35,19 @@ const TeacherProfile = () => {
     setTimeout(() => {
       setTeacher({
         id: '1',
-        name: 'James Wall',
+        name: 'Teacher Sandra 桑德拉',
+        title: 'COMMUNITY TUTOR',
+        teaches: 'English',
+        speaks: 'Tswana, Other',
+        certification: 'Certified TEFL Teacher with 4 years Experience',
+        from: 'South Africa',
+        living: 'Tshwane Metro, South Africa (07:31 UTC+02:00)',
+        about: 'Italki teacher since Oct 29, 2021',
+        since: 'Oct 29, 2021',
+        interests: ['Food', 'Films & TV Series'],
         hourly_rate: 340,
         rating: 5.0,
-        reviews: 462,
-        country: 'Egypt',
-        timezone: 'Cairo (UTC+02:00)'
+        reviews: 462
       });
       setLoading(false);
     }, 500);
@@ -64,24 +78,73 @@ const TeacherProfile = () => {
 
   return (
     <div className="container mx-auto px-4 py-6 max-w-3xl">
-      {/* Simplified Header */}
-      <div className="flex items-center gap-4 mb-6">
-        <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-          <span className="text-xl">👤</span>
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold">{teacher.name}</h1>
-          <div className="flex items-center gap-2 mt-1">
-            <Star className="w-4 h-4 text-yellow-500 fill-current" />
-            <span>{teacher.rating}</span>
-            <span className="text-gray-500">({teacher.reviews} reviews)</span>
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row gap-6 mb-8">
+        <div className="flex-shrink-0">
+          <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
+            <span className="text-3xl">👤</span>
           </div>
         </div>
+        
+        <div className="flex-1">
+          <div className="mb-4">
+            <h1 className="text-2xl font-bold">{teacher.name}</h1>
+            <Badge variant="secondary" className="mt-2">{teacher.title}</Badge>
+          </div>
+          
+          <div className="space-y-4">
+            <div>
+              <h2 className="font-semibold">Teaching {teacher.teaches}</h2>
+              <p className="font-bold">Native</p>
+            </div>
+            
+            <div>
+              <h2 className="font-semibold">Speaks</h2>
+              <p className="font-bold">{teacher.speaks}</p>
+            </div>
+            
+            <p>{teacher.certification}</p>
+            
+            <div className="space-y-2">
+              <p>From {teacher.from}</p>
+              <p>Living in {teacher.living}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex flex-col items-end">
+          <div className="flex items-center gap-2 mb-4">
+            <Star className="w-5 h-5 text-yellow-500 fill-current" />
+            <span className="text-xl font-bold">{teacher.rating}</span>
+            <span className="text-gray-500">({teacher.reviews} reviews)</span>
+          </div>
+          <Button onClick={handleBookLesson} className="w-full md:w-auto">
+            Book now
+          </Button>
+        </div>
       </div>
+
+      {/* About Me Section */}
+      <Card className="mb-6">
+        <CardContent className="p-6">
+          <h2 className="text-lg font-semibold mb-4">About Me</h2>
+          <p className="mb-4">{teacher.about}</p>
+          
+          <div className="flex flex-wrap gap-4">
+            {teacher.interests.map((interest, index) => (
+              <Badge key={index} variant="outline">
+                {interest}
+              </Badge>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Lessons Section */}
       <Card className="mb-6">
         <CardContent className="p-6">
+          <h2 className="text-lg font-semibold mb-4">English Lessons</h2>
+          
           <div className="space-y-6">
             {/* Trial Lesson */}
             <div className="border-b pb-6">
@@ -100,9 +163,10 @@ const TeacherProfile = () => {
             {/* Regular Lesson */}
             <div>
               <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-semibold">Standard Lesson</h3>
+                <h3 className="text-lg font-semibold">English Fluency Practice</h3>
                 <Badge variant="secondary">4,334 lessons completed</Badge>
               </div>
+              <p className="text-sm text-gray-600 mb-3">Real-Time Corrections and Feedback</p>
               <div className="flex justify-between items-center">
                 <div className="text-xl font-bold text-blue-600">EGP {teacher.hourly_rate - 50}</div>
                 <Button onClick={handleBookLesson}>
@@ -145,14 +209,6 @@ const TeacherProfile = () => {
           ))}
         </CardContent>
       </Card>
-
-      <Button 
-        variant="outline" 
-        onClick={() => navigate('/teachers')}
-        className="w-full"
-      >
-        Back to Teachers
-      </Button>
     </div>
   );
 };
