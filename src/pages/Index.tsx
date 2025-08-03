@@ -146,32 +146,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 lg:py-20 hero-gradient">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-3xl mx-auto text-white">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Start Your English Learning Journey Today
-            </h2>
-            <p className="text-lg sm:text-xl mb-6 sm:mb-8 text-white/90 px-4">
-              Join thousands of students who have achieved their English learning goals with us
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto" asChild>
-                <Link to="/teachers">
-                  <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                  Start Now for Free
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto" asChild>
-                <Link to="/about">
-                  Learn More
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+    
     </div>
   );
 };
