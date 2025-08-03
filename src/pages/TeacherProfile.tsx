@@ -104,10 +104,62 @@ const TeacherProfile = () => {
               <div className="flex-1 text-center md:text-left">
                 <div className="mb-4">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                    <div>
-                      <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{teacher.name}</h1>
-                      <p className="text-lg text-blue-600 font-medium mt-1">{teacher.specialization}</p>
-                    </div>
+                    <div className="bg-white rounded-xl shadow-sm border overflow-hidden mb-6">
+          <div className="p-6">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+              <MessageSquare className="w-6 h-6 mr-2 text-blue-600" />
+              My Creations
+            </h2>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="border border-gray-200 rounded-lg p-5 transition-all hover:shadow-md hover:border-blue-200">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <BookOpen className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="font-semibold text-lg mb-1">Vocabulary</h3>
+                <p className="text-sm text-gray-500 mb-3">Essential words and phrases</p>
+                <div className="text-xs font-medium text-blue-600">1 SET AVAILABLE</div>
+              </div>
+              
+              <div className="border border-gray-200 rounded-lg p-5 transition-all hover:shadow-md hover:border-blue-200">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-lg mb-1">Podcasts</h3>
+                <p className="text-sm text-gray-500 mb-3">Listen and learn on the go</p>
+                <div className="text-xs font-medium text-purple-600">56 EPISODES</div>
+              </div>
+              
+              <div className="border border-gray-200 rounded-lg p-5 transition-all hover:shadow-md hover:border-blue-200">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-lg mb-1">Quizzes</h3>
+                <p className="text-sm text-gray-500 mb-3">Test your knowledge</p>
+                <div className="text-xs font-medium text-green-600">124 QUIZZES</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 mb-8 text-center">
+          <h2 className="text-2xl font-bold text-white mb-3">Ready to improve your English?</h2>
+          <p className="text-blue-100 mb-6 max-w-md mx-auto">
+            Book your first lesson with {teacher.name} today and start your language journey
+          </p>
+          <Button 
+            className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6 font-bold"
+            onClick={handleBookLesson}
+          >
+            Book Trial Lesson - EGP 340.68
+          </Button>
+        </div>
+
                     <div className="flex flex-col items-center md:items-end">
                       <div className="flex items-center gap-1">
                         <Star className="w-5 h-5 text-yellow-500 fill-current" />
