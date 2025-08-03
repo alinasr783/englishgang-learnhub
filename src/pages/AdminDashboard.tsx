@@ -65,59 +65,65 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
-          <h1 className="text-xl sm:text-2xl font-bold">Admin Dashboard</h1>
-          <div className="flex items-center gap-2 sm:gap-4 text-sm">
-            <span className="text-muted-foreground hidden sm:inline">
-              Welcome, {user.email}
-            </span>
-            <Button variant="outline" size="sm" onClick={handleLogout}>
-              <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Logout</span>
-              <span className="sm:hidden">Exit</span>
+      <header className="border-b bg-card shadow-card">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gradient">لوحة التحكم</h1>
+            <p className="text-muted-foreground text-sm">إدارة شاملة للموقع والمحتوى</p>
+          </div>
+          <div className="flex items-center gap-4 text-sm">
+            <div className="hidden sm:flex items-center gap-2 bg-muted px-3 py-2 rounded-lg">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-muted-foreground">
+                مرحباً، {user.email}
+              </span>
+            </div>
+            <Button variant="outline" size="sm" onClick={handleLogout} className="hover:bg-destructive hover:text-destructive-foreground transition-colors">
+              <LogOut className="w-4 h-4 mr-2" />
+              <span className="hidden sm:inline">تسجيل خروج</span>
+              <span className="sm:hidden">خروج</span>
             </Button>
           </div>
         </div>
       </header>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <Tabs defaultValue="courses" className="space-y-4 sm:space-y-6">
-          <TabsList className="grid w-full grid-cols-3 sm:grid-cols-7 h-auto p-1">
-            <TabsTrigger value="courses" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
-              <BookOpen className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Courses</span>
-              <span className="sm:hidden">Cours</span>
+        <Tabs defaultValue="courses" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3 sm:grid-cols-7 h-auto p-1 bg-muted rounded-xl">
+            <TabsTrigger value="courses" className="flex items-center gap-2 py-3 text-sm rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+              <BookOpen className="w-4 h-4" />
+              <span className="hidden sm:inline">الكورسات</span>
+              <span className="sm:hidden">كورس</span>
             </TabsTrigger>
-            <TabsTrigger value="teachers" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
-              <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Teachers</span>
-              <span className="sm:hidden">Teach</span>
+            <TabsTrigger value="teachers" className="flex items-center gap-2 py-3 text-sm rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+              <Users className="w-4 h-4" />
+              <span className="hidden sm:inline">المعلمين</span>
+              <span className="sm:hidden">معلم</span>
             </TabsTrigger>
-            <TabsTrigger value="bookings" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
-              <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Bookings</span>
-              <span className="sm:hidden">Book</span>
+            <TabsTrigger value="bookings" className="flex items-center gap-2 py-3 text-sm rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+              <Calendar className="w-4 h-4" />
+              <span className="hidden sm:inline">الحجوزات</span>
+              <span className="sm:hidden">حجز</span>
             </TabsTrigger>
-            <TabsTrigger value="payments" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
-              <CreditCard className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Payments</span>
-              <span className="sm:hidden">Pay</span>
+            <TabsTrigger value="payments" className="flex items-center gap-2 py-3 text-sm rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+              <CreditCard className="w-4 h-4" />
+              <span className="hidden sm:inline">المدفوعات</span>
+              <span className="sm:hidden">دفع</span>
             </TabsTrigger>
-            <TabsTrigger value="theme" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
-              <Palette className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Theme</span>
-              <span className="sm:hidden">Style</span>
+            <TabsTrigger value="theme" className="flex items-center gap-2 py-3 text-sm rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+              <Palette className="w-4 h-4" />
+              <span className="hidden sm:inline">التصميم</span>
+              <span className="sm:hidden">لون</span>
             </TabsTrigger>
-            <TabsTrigger value="site-settings" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
-              <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Site Settings</span>
-              <span className="sm:hidden">Site</span>
+            <TabsTrigger value="site-settings" className="flex items-center gap-2 py-3 text-sm rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+              <Settings className="w-4 h-4" />
+              <span className="hidden sm:inline">إعدادات الموقع</span>
+              <span className="sm:hidden">إعداد</span>
             </TabsTrigger>
-            <TabsTrigger value="admins" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
-              <UserCog className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Admins</span>
-              <span className="sm:hidden">Admin</span>
+            <TabsTrigger value="admins" className="flex items-center gap-2 py-3 text-sm rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all">
+              <UserCog className="w-4 h-4" />
+              <span className="hidden sm:inline">المديرين</span>
+              <span className="sm:hidden">مدير</span>
             </TabsTrigger>
           </TabsList>
 

@@ -253,7 +253,7 @@ const TeacherProfile = () => {
             <div className="grid grid-cols-8 gap-1 text-sm">
               {/* Time slots */}
               {['00 - 04 AM', '04 - 08 AM', '08 - 12 AM', '12 - 04 PM', '04 - 08 PM', '08 - 00 PM'].map((timeSlot, index) => (
-                <React.Fragment key={timeSlot}>
+                <div key={timeSlot} className="contents">
                   <div className="text-muted-foreground py-2">{timeSlot}</div>
                   {Array.from({length: 7}, (_, dayIndex) => (
                     <div 
@@ -264,7 +264,7 @@ const TeacherProfile = () => {
                       }`}
                     />
                   ))}
-                </React.Fragment>
+                </div>
               ))}
             </div>
           </div>
