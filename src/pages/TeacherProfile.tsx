@@ -166,117 +166,78 @@ const TeacherProfile = () => {
         </div>
 
         {/* English Lessons Section */}
-        <div className="bg-white rounded-xl shadow-sm border overflow-hidden mb-6">
-          <div className="p-6">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900 flex items-center">
-              <BookOpen className="w-6 h-6 mr-2 text-blue-600" />
-              English Lessons
-            </h2>
-            
-            {/* Trial Lesson - Highlighted */}
-            <div className="border border-blue-200 rounded-lg bg-blue-50 p-5 mb-6">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-xl font-semibold text-gray-900">Trial Lesson</h3>
-                    <Badge className="bg-green-100 text-green-800">
-                      154 lessons completed
-                    </Badge>
-                  </div>
-                  <p className="text-gray-600">Perfect for first-time students! Get to know each other.</p>
-                </div>
-                <div className="flex flex-col items-end">
-                  <div className="text-2xl font-bold text-blue-600">EGP 340.68</div>
-                  <div className="text-sm text-gray-500 mb-2">50-min lesson</div>
-                  <Button 
-                    className="bg-blue-600 hover:bg-blue-700 text-white w-full md:w-auto"
-                    onClick={handleBookLesson}
-                  >
-                    Book Trial Lesson
-                  </Button>
-                </div>
+        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+          <h2 className="text-2xl font-bold mb-6">English Lessons</h2>
+          
+          {/* Trial Lesson */}
+          <div className="border-b pb-6 mb-6">
+            <h3 className="text-xl font-semibold mb-2">Trial Lesson</h3>
+            <p className="text-muted-foreground mb-3">154 lessons completed</p>
+            <div className="text-2xl font-bold text-destructive mb-4">EGP 340.68+</div>
+            <Button 
+              className="w-full bg-destructive hover:bg-destructive/90 text-white"
+              onClick={handleBookLesson}
+            >
+              Book now
+            </Button>
+          </div>
+
+          {/* Course Listings */}
+          <div className="space-y-6">
+            <div className="border-b pb-6">
+              <h3 className="text-lg font-semibold mb-2">
+                English Fluency Practice (Real-Time Corrections and Feedback all the time)
+              </h3>
+              <p className="text-sm text-muted-foreground mb-2">B1 - C2 | Conversation</p>
+              <p className="text-sm text-muted-foreground mb-3">4,334 lessons completed</p>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-xl font-bold text-destructive">EGP 292.01+</span>
+                <span className="text-sm text-muted-foreground">Package with 8% off</span>
               </div>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={handleBookLesson}
+              >
+                Book now
+              </Button>
             </div>
-            
-            {/* Other Courses */}
-            <div className="space-y-6">
-              <div className="border-b pb-6">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      English Fluency Practice
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-3">Real-time corrections and feedback</p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline" className="text-xs">B1 - C2</Badge>
-                      <Badge variant="outline" className="text-xs">Conversation</Badge>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <div className="text-xl font-bold text-blue-600">EGP 292.01</div>
-                    <div className="text-sm text-gray-500 mb-2">Package with 8% off</div>
-                    <Button 
-                      variant="outline" 
-                      className="w-full md:w-auto border-blue-600 text-blue-600 hover:bg-blue-50"
-                      onClick={handleBookLesson}
-                    >
-                      Book Now
-                    </Button>
-                  </div>
-                </div>
+
+            <div className="border-b pb-6">
+              <h3 className="text-lg font-semibold mb-2">
+                Advanced & Upper Advanced Speaking & Writing (IELTS & TOEFL)
+              </h3>
+              <p className="text-sm text-muted-foreground mb-2">B1 - C2 | Language Essentials</p>
+              <p className="text-sm text-muted-foreground mb-3">549 lessons completed</p>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-xl font-bold text-destructive">EGP 243.34+</span>
+                <span className="text-sm text-muted-foreground">Package with 15% off</span>
               </div>
-              
-              <div className="border-b pb-6">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      Advanced Speaking & Writing
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-3">IELTS & TOEFL preparation</p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline" className="text-xs">B1 - C2</Badge>
-                      <Badge variant="outline" className="text-xs">Test Preparation</Badge>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <div className="text-xl font-bold text-blue-600">EGP 243.34</div>
-                    <div className="text-sm text-gray-500 mb-2">Package with 15% off</div>
-                    <Button 
-                      variant="outline" 
-                      className="w-full md:w-auto border-blue-600 text-blue-600 hover:bg-blue-50"
-                      onClick={handleBookLesson}
-                    >
-                      Book Now
-                    </Button>
-                  </div>
-                </div>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={handleBookLesson}
+              >
+                Book now
+              </Button>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-2">
+                Mastering Business English: Professional Communication for Success
+              </h3>
+              <p className="text-sm text-muted-foreground mb-2">B1 - C2 | Language Essentials</p>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-xl font-bold text-destructive">EGP 243.34+</span>
+                <span className="text-sm text-muted-foreground">Package with 10% off</span>
               </div>
-              
-              <div>
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      Business English Mastery
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-3">Professional communication skills</p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline" className="text-xs">B1 - C2</Badge>
-                      <Badge variant="outline" className="text-xs">Business</Badge>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <div className="text-xl font-bold text-blue-600">EGP 243.34</div>
-                    <div className="text-sm text-gray-500 mb-2">Package with 10% off</div>
-                    <Button 
-                      variant="outline" 
-                      className="w-full md:w-auto border-blue-600 text-blue-600 hover:bg-blue-50"
-                      onClick={handleBookLesson}
-                    >
-                      Book Now
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={handleBookLesson}
+              >
+                Book now
+              </Button>
             </div>
           </div>
         </div>
