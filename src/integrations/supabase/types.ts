@@ -296,7 +296,7 @@ export type Database = {
     }
     Functions: {
       verify_admin_password: {
-        Args: { admin_email: string; password_input: string }
+        Args: { admin_email: string; admin_password: string }
         Returns: boolean
       }
     }
