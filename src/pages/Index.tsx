@@ -68,77 +68,52 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="hero-gradient min-h-screen flex items-center">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Hero Content */}
-          <div className="text-white animate-slide-up text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-              Learn English with
-              <span className="block text-transparent bg-gradient-to-r from-white to-blue-200 bg-clip-text">
-                The Best Teachers
-              </span>
+      <section className="bg-gradient-to-br from-blue-50 to-white py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              Find Your Perfect
+              <span className="block text-primary">English Teacher</span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 leading-relaxed">
-              Book individual lessons with qualified teachers from around the world. Learn at your own pace and achieve your English learning goals.
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              Take personalized lessons with experienced teachers. Improve your English speaking, writing, and conversation skills at your own pace.
             </p>
             
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 justify-center lg:justify-start">
-              <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto" asChild>
-                <Link to="/teachers">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                  Choose Your Teacher
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto" asChild>
-                <Link to="/courses">
-                  <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                  View Courses
-                </Link>
-              </Button>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-6">
-              <div className="text-center">
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1">500+</div>
-                <div className="text-white/80 text-xs sm:text-sm">Qualified Teachers</div>
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <div className="flex flex-col sm:flex-row gap-4 bg-white rounded-lg p-2 shadow-lg border">
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    placeholder="Search for teachers, specializations..."
+                    className="w-full px-4 py-3 text-gray-700 bg-transparent focus:outline-none"
+                  />
+                </div>
+                <Button size="lg" className="px-8 bg-primary hover:bg-primary/90 text-white">
+                  Search
+                </Button>
               </div>
+            </div>
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
               <div className="text-center">
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1">10k+</div>
-                <div className="text-white/80 text-xs sm:text-sm">Happy Students</div>
+                <div className="text-2xl font-bold text-primary mb-1">500+</div>
+                <div className="text-gray-600 text-sm">Expert Teachers</div>
               </div>
               <div className="text-center">
-                <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1">4.9</div>
-                <div className="text-white/80 text-xs sm:text-sm">Platform Rating</div>
+                <div className="text-2xl font-bold text-primary mb-1">50+</div>
+                <div className="text-gray-600 text-sm">Countries</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary mb-1">4.9</div>
+                <div className="text-gray-600 text-sm">Average Rating</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary mb-1">24/7</div>
+                <div className="text-gray-600 text-sm">Support</div>
               </div>
             </div>
-          </div>
-
-          {/* Hero Image */}
-          <div className="relative animate-float mt-8 lg:mt-0 order-first lg:order-last">
-            <img
-              src={heroImage}
-              alt="English Learning Platform"
-              className="rounded-2xl sm:rounded-3xl shadow-hero w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto"
-            />
-            {/* Floating Cards */}
-            <div className="absolute -top-2 sm:-top-4 -right-2 sm:-right-4 bg-white rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-card animate-float text-xs sm:text-sm" style={{ animationDelay: '0.5s' }}>
-              <div className="flex items-center space-x-1 sm:space-x-2">
-                <Star className="w-3 h-3 sm:w-5 sm:h-5 text-learning-brown fill-current" />
-                <span className="font-semibold">4.9/5</span>
-              </div>
-              <div className="text-xs text-muted-foreground hidden sm:block">From 2000+ reviews</div>
-            </div>
-            <div className="absolute -bottom-2 sm:-bottom-4 -left-2 sm:-left-4 bg-learning-olive text-white rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-card animate-float text-xs sm:text-sm" style={{ animationDelay: '1s' }}>
-              <div className="flex items-center space-x-1 sm:space-x-2">
-                <CheckCircle className="w-3 h-3 sm:w-5 sm:h-5" />
-                <span className="font-semibold">95%</span>
-              </div>
-              <div className="text-xs opacity-90 hidden sm:block">Success Rate</div>
-            </div>
-          </div>
           </div>
         </div>
       </section>

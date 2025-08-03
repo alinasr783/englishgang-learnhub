@@ -38,7 +38,7 @@ const AdminLogin = () => {
       const { data: isValidAdmin, error: verifyError } = await supabase
         .rpc('verify_admin_password', {
           admin_email: email,
-          password_input: password
+          admin_password: password
         });
 
       if (verifyError) {

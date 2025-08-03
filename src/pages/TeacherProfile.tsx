@@ -89,90 +89,77 @@ const TeacherProfile = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-b from-primary/10 to-background py-12 sm:py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            {/* Teacher Info */}
-            <div className="lg:col-span-2">
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                <div className="flex-shrink-0">
-                  {teacher.image_url ? (
-                    <img
-                      src={teacher.image_url}
-                      alt={teacher.name}
-                      className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-lg object-cover mx-auto sm:mx-0"
-                    />
-                  ) : (
-                    <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 bg-muted rounded-lg flex items-center justify-center mx-auto sm:mx-0">
-                      <span className="text-2xl sm:text-3xl lg:text-4xl text-muted-foreground">👤</span>
-                    </div>
-                  )}
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* Teacher Profile Header */}
+        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Teacher Avatar */}
+            <div className="flex-shrink-0">
+              {teacher.image_url ? (
+                <img
+                  src={teacher.image_url}
+                  alt={teacher.name}
+                  className="w-32 h-32 rounded-full object-cover mx-auto md:mx-0 border-4 border-primary/10"
+                />
+              ) : (
+                <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center mx-auto md:mx-0">
+                  <span className="text-4xl text-primary">👤</span>
                 </div>
-                
-                <div className="flex-1 text-center sm:text-left">
-                  <h1 className="text-2xl sm:text-3xl font-bold mb-2">{teacher.name}</h1>
-                  <p className="text-lg sm:text-xl text-muted-foreground mb-3 sm:mb-4">{teacher.specialization}</p>
-                  
-                  <div className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-4 mb-3 sm:mb-4">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-5 h-5 text-yellow-500 fill-current" />
-                      <span className="font-medium">{teacher.rating}</span>
-                      <span className="text-muted-foreground">({teacher.reviews} reviews)</span>
-                    </div>
-                    
-                    <div className="flex items-center gap-1">
-                      <MapPin className="w-5 h-5 text-secondary" />
-                      <Badge variant={teacher.is_online ? "default" : "secondary"}>
-                        {teacher.is_online ? "Available Online" : "Unavailable"}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  {teacher.bio && (
-                    <p className="text-muted-foreground leading-relaxed">{teacher.bio}</p>
-                  )}
-                </div>
-              </div>
+              )}
             </div>
             
-            {/* Booking Card */}
-            <div className="lg:col-span-1">
-              <Card className="sticky top-24">
-                <CardHeader>
-                  <CardTitle className="text-center">Book Your Lesson</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-primary">
-                      {teacher.hourly_rate} EGP
-                    </div>
-                    <div className="text-muted-foreground">per hour</div>
-                  </div>
-                  
-                  <Separator />
-                  
-                  <Button 
-                    className="w-full" 
-                    size="lg"
-                    onClick={handleBookLesson}
-                    disabled={!teacher.is_online}
-                  >
-                    {teacher.is_online ? 'Book Trial Lesson' : 'Currently Unavailable'}
-                  </Button>
-                  
-                  <div className="text-xs text-center text-muted-foreground">
-                    Free 30-minute trial lesson
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Teacher Info */}
+            <div className="flex-1 text-center md:text-left">
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                <div>
+                  <h1 className="text-3xl font-bold mb-2">{teacher.name}</h1>
+                  <p className="text-xl text-muted-foreground mb-3">{teacher.specialization}</p>
+                </div>
+                <div className="text-center md:text-right">
+                  <div className="text-3xl font-bold text-primary mb-1">${teacher.hourly_rate}</div>
+                  <div className="text-sm text-muted-foreground">per lesson</div>
+                </div>
+              </div>
+              
+              {/* Stats */}
+              <div className="flex flex-wrap justify-center md:justify-start gap-6 mb-4">
+                <div className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                  <span className="font-semibold">{teacher.rating}</span>
+                  <span className="text-muted-foreground">({teacher.reviews} reviews)</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className={`w-3 h-3 rounded-full ${teacher.is_online ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+                  <span className={teacher.is_online ? 'text-green-600' : 'text-gray-500'}>
+                    {teacher.is_online ? 'Online' : 'Offline'}
+                  </span>
+                </div>
+              </div>
+              
+              {/* Bio */}
+              {teacher.bio && (
+                <p className="text-muted-foreground leading-relaxed mb-6">{teacher.bio}</p>
+              )}
+              
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button 
+                  size="lg"
+                  onClick={handleBookLesson}
+                  disabled={!teacher.is_online}
+                  className="bg-primary hover:bg-primary/90 text-white px-8"
+                >
+                  Book Trial Lesson
+                </Button>
+                <Button variant="outline" size="lg" className="px-8">
+                  Send Message
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Details Section */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        
+        {/* Details Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           <div className="lg:col-span-2 space-y-8">
             {/* Education */}
