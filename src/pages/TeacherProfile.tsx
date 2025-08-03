@@ -114,25 +114,11 @@ const TeacherProfile = () => {
                 <div>
                   <h1 className="text-3xl font-bold mb-2">{teacher.name}</h1>
                   <p className="text-xl text-muted-foreground mb-3">{teacher.specialization}</p>
+                  <p className="text-sm text-muted-foreground mb-3">Teacher since Aug 24, 2019</p>
                 </div>
                 <div className="text-center md:text-right">
-                  <div className="text-3xl font-bold text-primary mb-1">${teacher.hourly_rate}</div>
-                  <div className="text-sm text-muted-foreground">per lesson</div>
-                </div>
-              </div>
-              
-              {/* Stats */}
-              <div className="flex flex-wrap justify-center md:justify-start gap-6 mb-4">
-                <div className="flex items-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-500 fill-current" />
-                  <span className="font-semibold">{teacher.rating}</span>
-                  <span className="text-muted-foreground">({teacher.reviews} reviews)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className={`w-3 h-3 rounded-full ${teacher.is_online ? 'bg-green-500' : 'bg-gray-400'}`}></div>
-                  <span className={teacher.is_online ? 'text-green-600' : 'text-gray-500'}>
-                    {teacher.is_online ? 'Online' : 'Offline'}
-                  </span>
+                  <div className="text-3xl font-bold text-destructive mb-1">EGP {teacher.hourly_rate}+</div>
+                  <div className="text-sm text-muted-foreground">Package with 10% off</div>
                 </div>
               </div>
               
@@ -140,100 +126,223 @@ const TeacherProfile = () => {
               {teacher.bio && (
                 <p className="text-muted-foreground leading-relaxed mb-6">{teacher.bio}</p>
               )}
-              
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button 
-                  size="lg"
-                  onClick={handleBookLesson}
-                  disabled={!teacher.is_online}
-                  className="bg-primary hover:bg-primary/90 text-white px-8"
-                >
-                  Book Trial Lesson
-                </Button>
-                <Button variant="outline" size="lg" className="px-8">
-                  Send Message
-                </Button>
-              </div>
             </div>
           </div>
         </div>
-        
-        {/* Details Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            {/* Education */}
-            {teacher.education && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Award className="w-5 h-5" />
-                    Education
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>{teacher.education}</p>
-                </CardContent>
-              </Card>
-            )}
-            
-            {/* Certifications */}
-            {teacher.certifications && teacher.certifications.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Award className="w-5 h-5" />
-                    Certifications
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {teacher.certifications.map((cert, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                        <span>{cert}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
-            
+
+        {/* Teacher Statistics */}
+        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+              <div className="flex items-center justify-center gap-1 mb-2">
+                <Star className="w-6 h-6 text-yellow-500 fill-current" />
+                <span className="text-2xl font-bold">{teacher.rating}</span>
+              </div>
+              <p className="text-sm text-muted-foreground">Rating</p>
+            </div>
+            <div>
+              <div className="text-2xl font-bold mb-2">670</div>
+              <p className="text-sm text-muted-foreground">Students</p>
+            </div>
+            <div>
+              <div className="text-2xl font-bold mb-2">5444</div>
+              <p className="text-sm text-muted-foreground">Lessons</p>
+            </div>
+            <div>
+              <div className="text-2xl font-bold mb-2">100%</div>
+              <p className="text-sm text-muted-foreground">Attendance rate</p>
+            </div>
           </div>
+        </div>
+
+        {/* English Lessons Section */}
+        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+          <h2 className="text-2xl font-bold mb-6">English Lessons</h2>
           
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Info</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Rating:</span>
-                  <span className="font-medium">⭐ {teacher.rating}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Reviews:</span>
-                  <span className="font-medium">{teacher.reviews}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Status:</span>
-                  <Badge variant={teacher.is_online ? "default" : "secondary"}>
-                    {teacher.is_online ? "Available" : "Unavailable"}
-                  </Badge>
-                </div>
-              </CardContent>
-            </Card>
-            
+          {/* Trial Lesson */}
+          <div className="border-b pb-6 mb-6">
+            <h3 className="text-xl font-semibold mb-2">Trial Lesson</h3>
+            <p className="text-muted-foreground mb-3">154 lessons completed</p>
+            <div className="text-2xl font-bold text-destructive mb-4">EGP 340.68+</div>
             <Button 
-              variant="outline" 
-              className="w-full" 
-              onClick={() => navigate('/teachers')}
+              className="w-full bg-destructive hover:bg-destructive/90 text-white"
+              onClick={handleBookLesson}
             >
-              <ArrowRight className="w-4 h-4 mr-2" />
-              Back to Teachers
+              Book now
             </Button>
           </div>
+
+          {/* Course Listings */}
+          <div className="space-y-6">
+            <div className="border-b pb-6">
+              <h3 className="text-lg font-semibold mb-2">
+                English Fluency Practice (Real-Time Corrections and Feedback all the time)
+              </h3>
+              <p className="text-sm text-muted-foreground mb-2">B1 - C2 | Conversation</p>
+              <p className="text-sm text-muted-foreground mb-3">4,334 lessons completed</p>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-xl font-bold text-destructive">EGP 292.01+</span>
+                <span className="text-sm text-muted-foreground">Package with 8% off</span>
+              </div>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={handleBookLesson}
+              >
+                Book now
+              </Button>
+            </div>
+
+            <div className="border-b pb-6">
+              <h3 className="text-lg font-semibold mb-2">
+                Advanced & Upper Advanced Speaking & Writing (IELTS & TOEFL)
+              </h3>
+              <p className="text-sm text-muted-foreground mb-2">B1 - C2 | Language Essentials</p>
+              <p className="text-sm text-muted-foreground mb-3">549 lessons completed</p>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-xl font-bold text-destructive">EGP 243.34+</span>
+                <span className="text-sm text-muted-foreground">Package with 15% off</span>
+              </div>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={handleBookLesson}
+              >
+                Book now
+              </Button>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-2">
+                Mastering Business English: Professional Communication for Success
+              </h3>
+              <p className="text-sm text-muted-foreground mb-2">B1 - C2 | Language Essentials</p>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-xl font-bold text-destructive">EGP 243.34+</span>
+                <span className="text-sm text-muted-foreground">Package with 10% off</span>
+              </div>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={handleBookLesson}
+              >
+                Book now
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Availability Section */}
+        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+          <h2 className="text-2xl font-bold mb-4">Availability</h2>
+          <p className="text-muted-foreground mb-6">Available 05:45 PM Today</p>
+          
+          {/* Weekly Calendar */}
+          <div className="overflow-x-auto">
+            <div className="grid grid-cols-8 gap-1 mb-4 text-center text-sm">
+              <div></div>
+              <div className="font-medium">Sun<br/>3</div>
+              <div className="font-medium">Mon<br/>4</div>
+              <div className="font-medium">Tue<br/>5</div>
+              <div className="font-medium">Wed<br/>6</div>
+              <div className="font-medium">Thu<br/>7</div>
+              <div className="font-medium">Fri<br/>8</div>
+              <div className="font-medium">Sat<br/>9</div>
+            </div>
+            
+            <div className="grid grid-cols-8 gap-1 text-sm">
+              {/* Time slots */}
+              {['00 - 04 AM', '04 - 08 AM', '08 - 12 AM', '12 - 04 PM', '04 - 08 PM', '08 - 00 PM'].map((timeSlot, index) => (
+                <React.Fragment key={timeSlot}>
+                  <div className="text-muted-foreground py-2">{timeSlot}</div>
+                  {Array.from({length: 7}, (_, dayIndex) => (
+                    <div 
+                      key={`${index}-${dayIndex}`}
+                      className={`h-8 border border-gray-200 ${
+                        (index >= 2 && index <= 4) ? 'bg-green-500' : 
+                        (index === 4 && dayIndex === 2) ? 'bg-gray-100' : 'bg-gray-100'
+                      }`}
+                    />
+                  ))}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+          
+          <p className="text-center text-muted-foreground text-sm mt-4">
+            Based on your timezone (UTC+03:00)
+          </p>
+        </div>
+
+        {/* My Creations Section */}
+        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+          <h2 className="text-2xl font-bold mb-6">My Creations</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <span className="text-2xl">📚</span>
+              </div>
+              <h3 className="font-semibold mb-1">Vocabulary (1)</h3>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <span className="text-2xl">🎧</span>
+              </div>
+              <h3 className="font-semibold mb-1">Podcast (56)</h3>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <span className="text-2xl">📝</span>
+              </div>
+              <h3 className="font-semibold mb-1">Quiz (124)</h3>
+            </div>
+          </div>
+        </div>
+
+        {/* Education & Certifications */}
+        {(teacher.education || (teacher.certifications && teacher.certifications.length > 0)) && (
+          <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+            <h2 className="text-2xl font-bold mb-6">About Me</h2>
+            
+            {teacher.education && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                  <Award className="w-5 h-5" />
+                  Education
+                </h3>
+                <p className="text-muted-foreground">{teacher.education}</p>
+              </div>
+            )}
+            
+            {teacher.certifications && teacher.certifications.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                  <Award className="w-5 h-5" />
+                  Certifications
+                </h3>
+                <ul className="space-y-2">
+                  {teacher.certifications.map((cert, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                      <span className="text-muted-foreground">{cert}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Back Button */}
+        <div className="text-center">
+          <Button 
+            variant="outline" 
+            onClick={() => navigate('/teachers')}
+            className="px-8"
+          >
+            <ArrowRight className="w-4 h-4 mr-2" />
+            Back to Teachers
+          </Button>
         </div>
       </div>
     </div>
