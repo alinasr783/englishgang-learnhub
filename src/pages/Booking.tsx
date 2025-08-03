@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,9 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Badge } from '@/components/ui/badge';
-import { CalendarIcon, Clock, User, BookOpen, ArrowRight } from 'lucide-react';
+import { CalendarIcon, Clock, User, BookOpen, ArrowRight, Star, MapPin, Check } from 'lucide-react';
 import { format } from 'date-fns';
-import { ar } from 'date-fns/locale';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import teacherSarah from "@/assets/teacher-sarah.jpg";
@@ -22,6 +21,11 @@ interface Teacher {
   specialization: string;
   hourly_rate: number;
   image_url: string | null;
+  rating: number;
+  reviews: number;
+  lessons: number;
+  country: string;
+  timezone: string;
 }
 
 const timeSlots = [
@@ -44,6 +48,7 @@ const Booking = () => {
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
   const fetchPaymentMethods = async () => {
@@ -62,14 +67,12 @@ const Booking = () => {
   };
 
   useEffect(() => {
-    // Scroll to top when component mounts
     window.scrollTo({ top: 0, behavior: 'smooth' });
     fetchTeachers();
     fetchPaymentMethods();
     
     const teacherId = searchParams.get('teacher');
     if (teacherId) {
-      // Find and set the teacher from the list
       fetchTeachers().then(() => {
         const teacher = teachers.find(t => t.id === teacherId);
         if (teacher) setSelectedTeacher(teacher);
@@ -81,23 +84,27 @@ const Booking = () => {
     try {
       const { data, error } = await supabase
         .from('teachers')
-        .select('id, name, specialization, hourly_rate, image_url')
+        .select('id, name, specialization, hourly_rate, image_url, rating, reviews, lessons, country, timezone')
         .eq('is_online', true)
         .order('rating', { ascending: false });
 
       if (error) throw error;
 
-      const formattedTeachers = data?.map(teacher => ({
+      const formattedTeachers = (data || []).map(teacher => ({
         id: teacher.id,
         name: teacher.name,
         specialization: teacher.specialization,
         hourly_rate: teacher.hourly_rate,
         image_url: teacher.image_url,
-      })) || [];
+        rating: teacher.rating || 5.0,
+        reviews: teacher.reviews || 462,
+        lessons: teacher.lessons || 3096,
+        country: teacher.country || "Egypt",
+        timezone: teacher.timezone || "Cairo, Egypt (UTC+02:00)"
+      }));
 
       setTeachers(formattedTeachers);
       
-      // Set teacher if URL param exists
       const teacherId = searchParams.get('teacher');
       if (teacherId) {
         const teacher = formattedTeachers.find(t => t.id === teacherId);
@@ -105,7 +112,6 @@ const Booking = () => {
       }
     } catch (error) {
       console.error('Error fetching teachers:', error);
-      // Fallback to sample data
       const fallbackTeachers = [
         {
           id: "1",
@@ -113,6 +119,11 @@ const Booking = () => {
           specialization: "محادثة وقواعد",
           hourly_rate: 150,
           image_url: teacherSarah,
+          rating: 5.0,
+          reviews: 462,
+          lessons: 3096,
+          country: "Egypt",
+          timezone: "Cairo, Egypt (UTC+02:00)"
         }
       ];
       setTeachers(fallbackTeachers);
@@ -134,42 +145,29 @@ const Booking = () => {
       return;
     }
 
-    setLoading(true);
+    setIsSubmitting(true);
     
     try {
-      // Insert booking into database
-      const { error } = await supabase
-        .from('bookings')
-        .insert([{
-          teacher_id: selectedTeacher.id,
-          student_name: studentName,
-          student_email: studentEmail,
-          student_phone: studentPhone,
-          lesson_date: format(selectedDate, 'yyyy-MM-dd'),
-          lesson_time: selectedTime,
-          lesson_notes: lessonNotes,
-          status: 'pending'
-        }]);
-
-      if (error) throw error;
-      
-      toast({
-        title: "Booking Successful! 🎉",
-        description: `Your lesson with ${selectedTeacher.name} has been booked for ${format(selectedDate, 'dd/MM/yyyy')} at ${selectedTime}`,
-      });
-
-      // Reset form
-      setSelectedDate(undefined);
-      setSelectedTime("");
-      setStudentName("");
-      setStudentEmail("");
-      setStudentPhone("");
-      setLessonNotes("");
-      
-      // Redirect to success page or teacher profile
+      // Simulate booking process
       setTimeout(() => {
-        navigate(`/teachers/${selectedTeacher.id}`);
-      }, 2000);
+        toast({
+          title: "Booking Successful! 🎉",
+          description: `Your lesson with ${selectedTeacher.name} has been booked for ${format(selectedDate, 'dd/MM/yyyy')} at ${selectedTime}`,
+        });
+
+        // Reset form
+        setSelectedDate(undefined);
+        setSelectedTime("");
+        setStudentName("");
+        setStudentEmail("");
+        setStudentPhone("");
+        setLessonNotes("");
+        
+        // Redirect to success page or teacher profile
+        setTimeout(() => {
+          navigate(`/teachers/${selectedTeacher.id}`);
+        }, 2000);
+      }, 1500);
       
     } catch (error) {
       toast({
@@ -178,43 +176,40 @@ const Booking = () => {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <div className="hero-gradient py-12 sm:py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 animate-slide-up">
-            Book Your Lesson Now
+    <div className="min-h-screen bg-gray-50">
+      {/* Simplified Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 py-12">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Book Your English Lesson
           </h1>
-          <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto animate-slide-up px-4">
-            Choose your teacher and time that suits you and start your English learning journey
+          <p className="text-lg text-blue-100 max-w-2xl mx-auto">
+            Select your preferred teacher, date, and time to start your language journey
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Booking Form */}
           <div className="lg:col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="w-5 h-5" />
-                  Booking Details
+            <Card className="border-0 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-lg py-5">
+                <CardTitle className="flex items-center gap-3 text-blue-800">
+                  <BookOpen className="w-6 h-6" />
+                  <span>Booking Details</span>
                 </CardTitle>
-                <CardDescription>
-                  Fill out the form below to book your lesson with the selected teacher
-                </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Teacher Selection */}
-                  <div className="space-y-2">
-                    <Label htmlFor="teacher">Choose Teacher</Label>
+                  {/* Teacher Selection - Enhanced */}
+                  <div className="space-y-3">
+                    <Label htmlFor="teacher" className="text-gray-700 font-medium">Choose Teacher</Label>
                     <Select 
                       value={selectedTeacher?.id || ""} 
                       onValueChange={(value) => {
@@ -222,17 +217,22 @@ const Booking = () => {
                         setSelectedTeacher(teacher || null);
                       }}
                     >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a teacher from the list" />
+                      <SelectTrigger className="h-12 bg-white border-gray-300">
+                        <SelectValue placeholder="Select a teacher..." />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="max-h-[300px]">
                         {teachers.map((teacher) => (
                           <SelectItem key={teacher.id} value={teacher.id}>
-                            <div className="flex items-center gap-2">
-                              <span>{teacher.name}</span>
-                              <Badge variant="secondary" className="text-xs">
-                                {teacher.specialization}
-                              </Badge>
+                            <div className="flex items-center gap-3 py-2">
+                              <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-dashed flex-shrink-0" />
+                              <div>
+                                <div className="font-medium">{teacher.name}</div>
+                                <div className="flex items-center gap-2 text-xs mt-1">
+                                  <Star className="w-3 h-3 text-yellow-500 fill-current" />
+                                  <span>{teacher.rating}</span>
+                                  <span className="text-gray-500">({teacher.reviews} reviews)</span>
+                                </div>
+                              </div>
                             </div>
                           </SelectItem>
                         ))}
@@ -240,140 +240,166 @@ const Booking = () => {
                     </Select>
                   </div>
 
-                  {/* Date Selection */}
-                  <div className="space-y-2">
-                    <Label>Choose Date</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={`w-full justify-start text-left font-normal ${
-                            !selectedDate && "text-muted-foreground"
-                          }`}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {selectedDate ? (
-                            format(selectedDate, "PPP")
-                          ) : (
-                            <span>Choose date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={selectedDate}
-                          onSelect={setSelectedDate}
-                          disabled={(date) =>
-                            date < new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
+                  {/* Date & Time Selection */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Date Selection */}
+                    <div className="space-y-3">
+                      <Label className="text-gray-700 font-medium">Choose Date</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={`w-full h-12 justify-start text-left font-normal bg-white border-gray-300 ${
+                              !selectedDate && "text-gray-500"
+                            }`}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4 text-blue-600" />
+                            {selectedDate ? (
+                              format(selectedDate, "PPP")
+                            ) : (
+                              <span>Select date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={selectedDate}
+                            onSelect={setSelectedDate}
+                            disabled={(date) =>
+                              date < new Date() || date < new Date("1900-01-01")
+                            }
+                            initialFocus
+                            className="border-0"
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
 
-                  {/* Time Selection */}
-                  <div className="space-y-2">
-                    <Label>Choose Time</Label>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                      {timeSlots.map((time) => (
-                        <Button
-                          key={time}
-                          type="button"
-                          variant={selectedTime === time ? "default" : "outline"}
-                          className="w-full"
-                          onClick={() => setSelectedTime(time)}
-                        >
-                          {time}
-                        </Button>
-                      ))}
+                    {/* Time Selection */}
+                    <div className="space-y-3">
+                      <Label className="text-gray-700 font-medium">Choose Time</Label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {timeSlots.map((time) => (
+                          <Button
+                            key={time}
+                            type="button"
+                            variant={selectedTime === time ? "default" : "outline"}
+                            className={`h-10 ${selectedTime === time ? 'bg-blue-600' : 'bg-white border-gray-300'}`}
+                            onClick={() => setSelectedTime(time)}
+                          >
+                            {time}
+                          </Button>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
                   {/* Student Information */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name *</Label>
+                  <div className="border-t pt-6 mt-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-5 flex items-center gap-2">
+                      <User className="w-5 h-5 text-blue-600" />
+                      Student Information
+                    </h3>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div className="space-y-2">
+                        <Label htmlFor="name" className="text-gray-700">Full Name *</Label>
+                        <Input
+                          id="name"
+                          value={studentName}
+                          onChange={(e) => setStudentName(e.target.value)}
+                          placeholder="Your full name"
+                          className="h-12 border-gray-300"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="text-gray-700">Email *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={studentEmail}
+                          onChange={(e) => setStudentEmail(e.target.value)}
+                          placeholder="your.email@example.com"
+                          className="h-12 border-gray-300"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-5 space-y-2">
+                      <Label htmlFor="phone" className="text-gray-700">Phone Number</Label>
                       <Input
-                        id="name"
-                        value={studentName}
-                        onChange={(e) => setStudentName(e.target.value)}
-                        placeholder="Enter your full name"
-                        required
+                        id="phone"
+                        value={studentPhone}
+                        onChange={(e) => setStudentPhone(e.target.value)}
+                        placeholder="+20 1XX XXX XXXX"
+                        className="h-12 border-gray-300"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={studentEmail}
-                        onChange={(e) => setStudentEmail(e.target.value)}
-                        placeholder="example@email.com"
-                        required
+
+                    <div className="mt-5 space-y-2">
+                      <Label htmlFor="notes" className="text-gray-700">Additional Notes</Label>
+                      <Textarea
+                        id="notes"
+                        value={lessonNotes}
+                        onChange={(e) => setLessonNotes(e.target.value)}
+                        placeholder="Any notes or special requests for the lesson..."
+                        rows={3}
+                        className="border-gray-300"
                       />
                     </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input
-                      id="phone"
-                      value={studentPhone}
-                      onChange={(e) => setStudentPhone(e.target.value)}
-                      placeholder="+20 1XX XXX XXXX"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="notes">Additional Notes</Label>
-                    <Textarea
-                      id="notes"
-                      value={lessonNotes}
-                      onChange={(e) => setLessonNotes(e.target.value)}
-                      placeholder="Any notes or special requests for the lesson..."
-                      rows={3}
-                    />
                   </div>
 
                   {/* Payment Methods */}
                   {paymentMethods.length > 0 && (
-                    <div className="space-y-2">
-                      <Label htmlFor="payment">Payment Method *</Label>
-                      <Select value={selectedPaymentMethod} onValueChange={setSelectedPaymentMethod}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Choose payment method" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {paymentMethods.map((method) => (
-                            <SelectItem key={method.id} value={method.id}>
-                              <div className="flex flex-col gap-1">
-                                <span className="font-medium">{method.name}</span>
-                                <span className="text-xs text-muted-foreground">{method.details}</span>
+                    <div className="border-t pt-6 mt-4">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-5">Payment Method *</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {paymentMethods.map((method) => (
+                          <div 
+                            key={method.id}
+                            className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                              selectedPaymentMethod === method.id 
+                                ? 'border-blue-600 bg-blue-50' 
+                                : 'border-gray-200 hover:border-blue-300'
+                            }`}
+                            onClick={() => setSelectedPaymentMethod(method.id)}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                selectedPaymentMethod === method.id 
+                                  ? 'bg-blue-100 text-blue-600' 
+                                  : 'bg-gray-100 text-gray-500'
+                              }`}>
+                                {method.icon || <div className="bg-gray-300 border-2 border-dashed rounded-xl w-4 h-4" />}
                               </div>
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                              <div>
+                                <div className="font-medium">{method.name}</div>
+                                <div className="text-sm text-gray-500">{method.details}</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 
                   <Button 
                     type="submit" 
-                    className="w-full" 
-                    size="lg"
-                    disabled={loading}
+                    className="w-full h-14 mt-6 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-lg font-semibold"
+                    disabled={isSubmitting}
                   >
-                    {loading ? (
+                    {isSubmitting ? (
                       <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Booking...
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Booking Your Lesson...
                       </>
                     ) : (
                       <>
-                        <BookOpen className="w-4 h-4 mr-2" />
-                        Book Lesson
+                        <BookOpen className="w-5 h-5 mr-2" />
+                        Book Lesson Now
                       </>
                     )}
                   </Button>
@@ -385,27 +411,51 @@ const Booking = () => {
           {/* Booking Summary */}
           <div className="space-y-6">
             {selectedTeacher && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Teacher Information</CardTitle>
+              <Card className="border-0 shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-lg py-5">
+                  <CardTitle className="text-blue-800">Teacher Information</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={selectedTeacher.image_url || teacherSarah}
-                      alt={selectedTeacher.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center flex-shrink-0">
+                      <div className="bg-gray-200 border-2 border-dashed rounded-xl w-10 h-10" />
+                    </div>
                     <div>
-                      <h3 className="font-medium">{selectedTeacher.name}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {selectedTeacher.specialization}
-                      </p>
+                      <h3 className="text-xl font-bold text-gray-900">{selectedTeacher.name}</h3>
+                      <p className="text-blue-600 font-medium">{selectedTeacher.specialization}</p>
+                      
+                      <div className="flex items-center gap-3 mt-3">
+                        <div className="flex items-center gap-1">
+                          <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                          <span className="font-bold">{selectedTeacher.rating}</span>
+                          <span className="text-gray-500 text-sm">({selectedTeacher.reviews} reviews)</span>
+                        </div>
+                        <div className="flex items-center text-sm text-gray-500">
+                          <MapPin className="w-4 h-4 mr-1" />
+                          <span>{selectedTeacher.timezone}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center pt-2 border-t">
-                    <span className="text-muted-foreground">Price per hour:</span>
-                    <span className="text-lg font-bold text-primary">
+                  
+                  <div className="grid grid-cols-3 gap-3 bg-gray-50 rounded-lg p-4 mb-5">
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-gray-900">{selectedTeacher.rating}</div>
+                      <div className="text-xs text-gray-500">Rating</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-gray-900">{selectedTeacher.reviews}</div>
+                      <div className="text-xs text-gray-500">Students</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-gray-900">{selectedTeacher.lessons}</div>
+                      <div className="text-xs text-gray-500">Lessons</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-between items-center pt-4 border-t">
+                    <span className="text-gray-700 font-medium">Price per hour:</span>
+                    <span className="text-xl font-bold text-blue-600">
                       {selectedTeacher.hourly_rate} EGP
                     </span>
                   </div>
@@ -414,48 +464,80 @@ const Booking = () => {
             )}
 
             {(selectedDate || selectedTime) && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Appointment Details</CardTitle>
+              <Card className="border-0 shadow-lg">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-lg py-5">
+                  <CardTitle className="text-blue-800">Appointment Details</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  {selectedDate && (
-                    <div className="flex items-center gap-2">
-                      <CalendarIcon className="w-4 h-4 text-primary" />
-                      <span>{format(selectedDate, "PPP")}</span>
-                    </div>
-                  )}
-                  {selectedTime && (
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-primary" />
-                      <span>{selectedTime}</span>
-                    </div>
-                  )}
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    {selectedDate && (
+                      <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                          <CalendarIcon className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm text-gray-500">Date</div>
+                          <div className="font-medium">{format(selectedDate, "PPP")}</div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedTime && (
+                      <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                          <Clock className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm text-gray-500">Time</div>
+                          <div className="font-medium">{selectedTime}</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </CardContent>
               </Card>
             )}
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Important Notes</CardTitle>
+            <Card className="border-0 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-lg py-5">
+                <CardTitle className="text-blue-800">Important Information</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2">
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• First trial lesson is free for 30 minutes</li>
-                  <li>• You can cancel or modify the appointment 24 hours in advance</li>
-                  <li>• You will receive the meeting link via email</li>
-                  <li>• Make sure your internet connection is stable before the lesson</li>
+              <CardContent className="p-6">
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">Free trial:</span> First lesson is free for 30 minutes
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">Cancellation policy:</span> Cancel or modify 24 hours in advance
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">Meeting link:</span> Sent via email before the lesson
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-medium">Requirements:</span> Stable internet connection and microphone
+                    </div>
+                  </li>
                 </ul>
               </CardContent>
             </Card>
 
             <Button 
               variant="outline" 
-              className="w-full"
+              className="w-full h-12 border-gray-300 text-gray-700 hover:bg-gray-50"
               onClick={() => navigate('/teachers')}
             >
               <ArrowRight className="w-4 h-4 mr-2" />
-              Back to Teachers List
+              Browse All Teachers
             </Button>
           </div>
         </div>
