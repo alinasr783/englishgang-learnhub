@@ -5,11 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Users, BookOpen, Palette, LogOut, Plus, Calendar } from 'lucide-react';
+import { Users, BookOpen, Palette, LogOut, Calendar, CreditCard } from 'lucide-react';
 import AdminCourses from '@/components/admin/AdminCourses';
 import AdminTeachers from '@/components/admin/AdminTeachers';
 import AdminTheme from '@/components/admin/AdminTheme';
 import AdminBookings from '@/components/admin/AdminBookings';
+import AdminPayments from '@/components/admin/AdminPayments';
 
 const AdminDashboard = () => {
   const [user, setUser] = useState(null);
@@ -80,7 +81,7 @@ const AdminDashboard = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <Tabs defaultValue="courses" className="space-y-4 sm:space-y-6">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto p-1">
+          <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 h-auto p-1">
             <TabsTrigger value="courses" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
               <BookOpen className="w-3 h-3 sm:w-4 sm:h-4" />
               <span className="hidden sm:inline">Courses</span>
@@ -95,6 +96,11 @@ const AdminDashboard = () => {
               <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
               <span className="hidden sm:inline">Bookings</span>
               <span className="sm:hidden">Book</span>
+            </TabsTrigger>
+            <TabsTrigger value="payments" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
+              <CreditCard className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Payments</span>
+              <span className="sm:hidden">Pay</span>
             </TabsTrigger>
             <TabsTrigger value="theme" className="flex items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
               <Palette className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -113,6 +119,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="bookings">
             <AdminBookings />
+          </TabsContent>
+
+          <TabsContent value="payments">
+            <AdminPayments />
           </TabsContent>
 
           <TabsContent value="theme">

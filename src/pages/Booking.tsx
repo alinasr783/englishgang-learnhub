@@ -41,13 +41,32 @@ const Booking = () => {
   const [studentEmail, setStudentEmail] = useState("");
   const [studentPhone, setStudentPhone] = useState("");
   const [lessonNotes, setLessonNotes] = useState("");
+  const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+
+  const fetchPaymentMethods = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('payment_methods')
+        .select('*')
+        .eq('is_active', true)
+        .order('name');
+      
+      if (error) throw error;
+      setPaymentMethods(data || []);
+    } catch (error) {
+      console.error('Error fetching payment methods:', error);
+    }
+  };
 
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo({ top: 0, behavior: 'smooth' });
     fetchTeachers();
+    fetchPaymentMethods();
+    
     const teacherId = searchParams.get('teacher');
     if (teacherId) {
       // Find and set the teacher from the list
@@ -317,6 +336,28 @@ const Booking = () => {
                       rows={3}
                     />
                   </div>
+
+                  {/* Payment Methods */}
+                  {paymentMethods.length > 0 && (
+                    <div className="space-y-2">
+                      <Label htmlFor="payment">Payment Method *</Label>
+                      <Select value={selectedPaymentMethod} onValueChange={setSelectedPaymentMethod}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choose payment method" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {paymentMethods.map((method) => (
+                            <SelectItem key={method.id} value={method.id}>
+                              <div className="flex flex-col gap-1">
+                                <span className="font-medium">{method.name}</span>
+                                <span className="text-xs text-muted-foreground">{method.details}</span>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
 
                   <Button 
                     type="submit" 

@@ -143,6 +143,39 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_methods: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          details: string
+          id: string
+          is_active: boolean
+          name: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          details: string
+          id?: string
+          is_active?: boolean
+          name: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          details?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
