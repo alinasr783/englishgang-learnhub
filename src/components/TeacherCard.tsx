@@ -34,6 +34,9 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
                 src={teacher.image}
                 alt={teacher.name}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(teacher.name)}&background=random&color=fff&size=64`;
+                }}
               />
             </div>
             {teacher.isOnline && (

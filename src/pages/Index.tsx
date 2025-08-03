@@ -68,93 +68,124 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-16 sm:py-20 lg:py-24 hero-gradient">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-32 h-32 rounded-full border border-white/20"></div>
-          <div className="absolute top-40 right-20 w-24 h-24 rounded-full border border-white/20"></div>
-          <div className="absolute bottom-20 left-1/4 w-40 h-40 rounded-full border border-white/20"></div>
-          <div className="absolute bottom-40 right-10 w-20 h-20 rounded-full border border-white/20"></div>
+      <section className="relative overflow-hidden py-20 sm:py-24 lg:py-32 hero-gradient min-h-[90vh] flex items-center">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-1/4 left-[10%] w-32 h-32 rounded-full bg-white/10 animate-pulse"></div>
+          <div className="absolute top-1/3 right-[15%] w-24 h-24 rounded-full bg-white/5 animate-float"></div>
+          <div className="absolute bottom-1/3 left-[20%] w-40 h-40 rounded-full bg-white/10 animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-1/4 right-[25%] w-28 h-28 rounded-full bg-white/5 animate-float" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-[60%] w-16 h-16 rounded-full bg-white/10 animate-pulse" style={{ animationDelay: '3s' }}></div>
         </div>
         
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
-            <div className="text-center lg:text-right">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 animate-slide-up">
-                اكتشف معلم 
-                <span className="block text-white/90 text-gradient">الإنجليزية المثالي</span>
-              </h1>
-              <p className="text-lg sm:text-xl lg:text-2xl text-white/80 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                خذ دروساً شخصية مع معلمين خبراء. حسن مهاراتك في التحدث والكتابة والمحادثة باللغة الإنجليزية بالسرعة التي تناسبك.
-              </p>
+            <div className="text-center lg:text-right space-y-8">
+              <div className="space-y-6">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight animate-slide-up">
+                  اكتشف معلم 
+                  <span className="block bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent">
+                    الإنجليزية المثالي
+                  </span>
+                </h1>
+                <p className="text-xl sm:text-2xl lg:text-3xl text-white/85 leading-relaxed animate-slide-up max-w-2xl mx-auto lg:mx-0" style={{ animationDelay: '0.2s' }}>
+                  تعلم الإنجليزية مع معلمين خبراء من جميع أنحاء العالم بطريقة تفاعلية وممتعة
+                </p>
+              </div>
               
-              {/* Search Bar */}
-              <div className="max-w-lg mx-auto lg:mx-0 mb-8 animate-scale-in" style={{ animationDelay: '0.4s' }}>
-                <div className="flex flex-col sm:flex-row gap-3 bg-white/10 backdrop-blur-lg rounded-2xl p-3 border border-white/20 shadow-hero">
-                  <div className="flex-1">
-                    <input
-                      type="text"
-                      placeholder="ابحث عن معلمين، تخصصات..."
-                      className="w-full px-4 py-3 text-white placeholder-white/60 bg-transparent focus:outline-none text-lg"
-                    />
+              {/* Enhanced Search Bar */}
+              <div className="max-w-2xl mx-auto lg:mx-0 animate-scale-in" style={{ animationDelay: '0.4s' }}>
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/10 rounded-3xl blur-sm"></div>
+                  <div className="relative flex flex-col sm:flex-row gap-4 bg-white/15 backdrop-blur-xl rounded-3xl p-4 border border-white/30 shadow-hero">
+                    <div className="flex-1 relative">
+                      <Globe className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/60 w-6 h-6" />
+                      <input
+                        type="text"
+                        placeholder="ابحث عن معلمين، تخصصات، مستويات..."
+                        className="w-full px-4 py-4 pr-12 text-white placeholder-white/60 bg-transparent focus:outline-none text-lg rounded-2xl border border-white/20 focus:border-white/40 transition-all"
+                      />
+                    </div>
+                    <Button size="lg" className="px-8 py-4 bg-white text-primary hover:bg-white/95 hover:scale-105 shadow-lg font-semibold text-lg rounded-2xl transition-all duration-300">
+                      <Star className="w-5 h-5 ml-2" />
+                      ابدأ البحث
+                    </Button>
                   </div>
-                  <Button size="lg" className="px-6 bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-lg font-semibold">
-                    بحث
-                  </Button>
                 </div>
               </div>
               
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 animate-scale-in" style={{ animationDelay: '0.6s' }}>
-                <Button size="lg" className="bg-white text-primary hover:bg-learning-cream hover:text-primary shadow-hero text-lg px-8 py-4" asChild>
+              {/* Enhanced CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start animate-scale-in" style={{ animationDelay: '0.6s' }}>
+                <Button size="lg" className="group bg-white text-primary hover:bg-white/95 hover:scale-105 shadow-hero text-xl px-10 py-5 rounded-2xl transition-all duration-300" asChild>
                   <Link to="/teachers">
-                    <BookOpen className="w-5 h-5 ml-2" />
-                    ابدأ الآن مجاناً
+                    <BookOpen className="w-6 h-6 ml-3 group-hover:rotate-12 transition-transform" />
+                    ابدأ رحلتك مجاناً
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white hover:text-primary backdrop-blur-sm text-lg px-8 py-4">
-                  <Play className="w-5 h-5 ml-2" />
+                <Button variant="outline" size="lg" className="group border-white/40 bg-white/10 text-white hover:bg-white/20 hover:scale-105 backdrop-blur-sm text-xl px-10 py-5 rounded-2xl transition-all duration-300">
+                  <Play className="w-6 h-6 ml-3 group-hover:scale-110 transition-transform" />
                   شاهد الفيديو
                 </Button>
               </div>
-            </div>
-            
-            {/* Right Content - Stats & Features */}
-            <div className="space-y-6">
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 gap-4 animate-scale-in" style={{ animationDelay: '0.3s' }}>
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
-                  <div className="text-3xl font-bold text-white mb-2">500+</div>
-                  <div className="text-white/80 text-sm">معلم خبير</div>
+
+              {/* Trust Indicators */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-white/80 animate-scale-in" style={{ animationDelay: '0.8s' }}>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-white" />
+                  <span>معلمين معتمدين</span>
                 </div>
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
-                  <div className="text-3xl font-bold text-white mb-2">50+</div>
-                  <div className="text-white/80 text-sm">دولة</div>
+                <div className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                  <span>تقييم 4.9/5</span>
                 </div>
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
-                  <div className="text-3xl font-bold text-white mb-2">4.9</div>
-                  <div className="text-white/80 text-sm">متوسط التقييم</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20">
-                  <div className="text-3xl font-bold text-white mb-2">24/7</div>
-                  <div className="text-white/80 text-sm">دعم متواصل</div>
+                <div className="flex items-center gap-2">
+                  <Users className="w-5 h-5 text-white" />
+                  <span>+10000 طالب</span>
                 </div>
               </div>
-              
-              {/* Hero Image */}
-              <div className="relative animate-float">
-                <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-hero">
-                  <img 
-                    src={heroImage} 
-                    alt="English Learning" 
-                    className="w-full h-64 object-cover rounded-2xl shadow-lg"
-                  />
-                  <div className="absolute -top-4 -right-4 bg-accent text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                    🎓 دروس مباشرة
+            </div>
+            
+            {/* Right Content - Enhanced Stats & Hero Image */}
+            <div className="space-y-8">
+              {/* Enhanced Stats Grid */}
+              <div className="grid grid-cols-2 gap-6 animate-scale-in" style={{ animationDelay: '0.3s' }}>
+                {[
+                  { number: "500+", label: "معلم خبير", icon: <Users className="w-8 h-8" /> },
+                  { number: "50+", label: "دولة", icon: <Globe className="w-8 h-8" /> },
+                  { number: "4.9", label: "متوسط التقييم", icon: <Star className="w-8 h-8" /> },
+                  { number: "24/7", label: "دعم متواصل", icon: <MessageCircle className="w-8 h-8" /> }
+                ].map((stat, index) => (
+                  <div key={index} className="group bg-white/15 backdrop-blur-xl rounded-3xl p-8 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 shadow-hero">
+                    <div className="text-white/80 mb-3 flex justify-center group-hover:scale-110 transition-transform">
+                      {stat.icon}
+                    </div>
+                    <div className="text-4xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">{stat.number}</div>
+                    <div className="text-white/80 text-sm font-medium">{stat.label}</div>
                   </div>
-                  <div className="absolute -bottom-4 -left-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                    ⭐ تقييم 4.9
+                ))}
+              </div>
+              
+              {/* Enhanced Hero Image */}
+              <div className="relative animate-float">
+                <div className="relative group">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-white/20 to-white/10 rounded-[2rem] blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                  <div className="relative bg-white/15 backdrop-blur-xl rounded-[2rem] p-8 border border-white/30 shadow-hero overflow-hidden">
+                    <img 
+                      src={heroImage} 
+                      alt="English Learning" 
+                      className="w-full h-80 object-cover rounded-2xl shadow-2xl group-hover:scale-105 transition-transform duration-700"
+                    />
+                    {/* Floating Badges */}
+                    <div className="absolute -top-3 -right-3 bg-accent text-white px-6 py-3 rounded-full text-sm font-bold shadow-xl animate-bounce">
+                      🎓 دروس مباشرة
+                    </div>
+                    <div className="absolute -bottom-3 -left-3 bg-primary text-white px-6 py-3 rounded-full text-sm font-bold shadow-xl animate-bounce" style={{ animationDelay: '1s' }}>
+                      ⭐ تقييم 4.9
+                    </div>
+                    <div className="absolute top-1/2 -right-4 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-xs font-semibold shadow-lg animate-pulse">
+                      جلسة تجريبية مجانية
+                    </div>
                   </div>
                 </div>
               </div>

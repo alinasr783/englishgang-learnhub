@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Edit, Trash2, Upload } from 'lucide-react';
+import { Plus, Edit, Trash2, Upload, BookOpen } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -70,14 +70,20 @@ const AdminCourses = () => {
   const handleImageUpload = async (file: File): Promise<string | null> => {
     try {
       const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `course-images/${fileName}`;
+      const fileName = `course_${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = fileName;
 
       const { error: uploadError } = await supabase.storage
         .from('course-images')
-        .upload(filePath, file);
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        throw uploadError;
+      }
 
       const { data } = supabase.storage
         .from('course-images')
@@ -85,9 +91,10 @@ const AdminCourses = () => {
 
       return data.publicUrl;
     } catch (error) {
+      console.error('Image upload error:', error);
       toast({
-        title: "Error",
-        description: "Failed to upload image",
+        title: "خطأ في رفع الصورة",
+        description: "فشل في رفع صورة الكورس. حاول مرة أخرى.",
         variant: "destructive",
       });
       return null;
@@ -335,13 +342,22 @@ const AdminCourses = () => {
         {courses.map((course) => (
           <Card key={course.id}>
             <CardHeader>
-              {course.image_url && (
-                <img
-                  src={course.image_url}
-                  alt={course.title}
-                  className="w-full h-48 object-cover rounded-lg"
-                />
-              )}
+              <div className="w-full h-48 bg-muted rounded-lg overflow-hidden">
+                {course.image_url ? (
+                  <img
+                    src={course.image_url}
+                    alt={course.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(course.title)}&background=random&color=fff&size=200`;
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                    <BookOpen className="w-16 h-16" />
+                  </div>
+                )}
+              </div>
               <CardTitle className="text-lg">{course.title}</CardTitle>
               <CardDescription>{course.instructor}</CardDescription>
             </CardHeader>

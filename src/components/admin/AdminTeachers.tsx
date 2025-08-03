@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Plus, Edit, Trash2, Users } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -70,14 +70,20 @@ const AdminTeachers = () => {
   const handleImageUpload = async (file: File): Promise<string | null> => {
     try {
       const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `teacher-images/${fileName}`;
+      const fileName = `teacher_${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = fileName;
 
       const { error: uploadError } = await supabase.storage
         .from('teacher-images')
-        .upload(filePath, file);
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        throw uploadError;
+      }
 
       const { data } = supabase.storage
         .from('teacher-images')
@@ -85,9 +91,10 @@ const AdminTeachers = () => {
 
       return data.publicUrl;
     } catch (error) {
+      console.error('Image upload error:', error);
       toast({
-        title: "Error",
-        description: "Failed to upload image",
+        title: "خطأ في رفع الصورة",
+        description: "فشل في رفع صورة المعلم. حاول مرة أخرى.",
         variant: "destructive",
       });
       return null;
@@ -329,13 +336,22 @@ const AdminTeachers = () => {
         {teachers.map((teacher) => (
           <Card key={teacher.id}>
             <CardHeader>
-              {teacher.image_url && (
-                <img
-                  src={teacher.image_url}
-                  alt={teacher.name}
-                  className="w-full h-48 object-cover rounded-lg"
-                />
-              )}
+              <div className="w-full h-48 bg-muted rounded-lg overflow-hidden">
+                {teacher.image_url ? (
+                  <img
+                    src={teacher.image_url}
+                    alt={teacher.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(teacher.name)}&background=random&color=fff&size=200`;
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                    <Users className="w-16 h-16" />
+                  </div>
+                )}
+              </div>
               <CardTitle className="text-lg">{teacher.name}</CardTitle>
               <CardDescription>{teacher.specialization}</CardDescription>
             </CardHeader>
