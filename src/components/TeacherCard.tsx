@@ -23,7 +23,8 @@ interface TeacherCardProps {
 
 const TeacherCard = ({ teacher }: TeacherCardProps) => {
   return (
-    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 border border-border hover:border-primary/20 bg-card">
+    <Link to={`/teacher/${teacher.id}`} className="block">
+      <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 border border-border hover:border-primary/20 bg-card cursor-pointer">
       <CardContent className="p-0">
         <div className="flex gap-3 p-4">
           {/* Teacher Avatar */}
@@ -59,7 +60,15 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
                   )}
                 </div>
               </div>
-              <Button variant="ghost" size="sm" className="p-1 h-8 w-8 text-muted-foreground hover:text-foreground">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="p-1 h-8 w-8 text-muted-foreground hover:text-foreground"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              >
                 <MessageCircle className="w-4 h-4" />
               </Button>
             </div>
@@ -105,13 +114,23 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
                   variant="outline" 
                   size="sm"
                   className="text-xs px-3 py-1 h-8 hover:bg-primary hover:text-primary-foreground border-primary/20 hover:border-primary"
-                  asChild
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.location.href = `/booking?teacher=${teacher.id}`;
+                  }}
                 >
-                  <Link to={`/booking?teacher=${teacher.id}`}>
-                    Book trial
-                  </Link>
+                  Book trial
                 </Button>
-                <Button variant="ghost" size="sm" className="p-1 h-8 w-8 text-muted-foreground hover:text-red-500">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="p-1 h-8 w-8 text-muted-foreground hover:text-red-500"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
                   <Heart className="w-4 h-4" />
                 </Button>
               </div>
@@ -120,6 +139,7 @@ const TeacherCard = ({ teacher }: TeacherCardProps) => {
         </div>
       </CardContent>
     </Card>
+    </Link>
   );
 };
 
