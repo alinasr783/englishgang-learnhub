@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Star, MapPin, Award, ArrowRight } from 'lucide-react';
+import { Star, MapPin, Award, ArrowRight, AlertCircle, Info } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -20,6 +20,8 @@ interface Teacher {
   bio: string | null;
   education: string | null;
   certifications: string[] | null;
+  teaching_style?: string | null;
+  experience?: string | null;
 }
 
 const TeacherProfile = () => {
@@ -30,7 +32,6 @@ const TeacherProfile = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Scroll to top when component mounts
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (id) {
       fetchTeacher(id);
@@ -90,42 +91,87 @@ const TeacherProfile = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        {/* Teacher Profile Header */}
+        {/* Teacher Profile Header - Improved Design */}
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* Teacher Avatar */}
-            <div className="flex-shrink-0">
+          <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+            {/* Teacher Avatar - Improved for mobile */}
+            <div className="flex-shrink-0 relative">
               {teacher.image_url ? (
                 <img
                   src={teacher.image_url}
                   alt={teacher.name}
-                  className="w-32 h-32 rounded-full object-cover mx-auto md:mx-0 border-4 border-primary/10"
+                  className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border-4 border-primary/10"
                 />
               ) : (
-                <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center mx-auto md:mx-0">
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-primary/10 flex items-center justify-center">
                   <span className="text-4xl text-primary">👤</span>
                 </div>
               )}
+              {teacher.is_online && (
+                <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+              )}
             </div>
             
-            {/* Teacher Info */}
-            <div className="flex-1 text-center md:text-left">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+            {/* Teacher Info - Improved layout */}
+            <div className="flex-1 text-center md:text-left space-y-3">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h1 className="text-3xl font-bold mb-2">{teacher.name}</h1>
-                  <p className="text-xl text-muted-foreground mb-3">{teacher.specialization}</p>
-                  <p className="text-sm text-muted-foreground mb-3">Teacher since Aug 24, 2019</p>
+                  <h1 className="text-2xl md:text-3xl font-bold">{teacher.name}</h1>
+                  <p className="text-lg md:text-xl text-muted-foreground">{teacher.specialization}</p>
                 </div>
-                <div className="text-center md:text-right">
-                  <div className="text-3xl font-bold text-destructive mb-1">EGP {teacher.hourly_rate}+</div>
+                <div className="flex flex-col items-center md:items-end">
+                  <div className="text-2xl md:text-3xl font-bold text-destructive">EGP {teacher.hourly_rate}+</div>
                   <div className="text-sm text-muted-foreground">Package with 10% off</div>
                 </div>
               </div>
               
+              {/* Rating and Reviews */}
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <div className="flex items-center gap-1">
+                  <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                  <span className="font-medium">{teacher.rating}</span>
+                </div>
+                <span className="text-muted-foreground">({teacher.reviews} reviews)</span>
+              </div>
+              
               {/* Bio */}
               {teacher.bio && (
-                <p className="text-muted-foreground leading-relaxed mb-6">{teacher.bio}</p>
+                <p className="text-muted-foreground leading-relaxed text-sm md:text-base">{teacher.bio}</p>
               )}
+              
+              {/* Book Button for mobile */}
+              <div className="md:hidden">
+                <Button 
+                  className="w-full bg-destructive hover:bg-destructive/90 text-white"
+                  onClick={handleBookLesson}
+                >
+                  Book Trial Lesson
+                </Button>
+              </div>
+            </div>
+            
+            {/* Book Button for desktop */}
+            <div className="hidden md:block flex-shrink-0">
+              <Button 
+                className="bg-destructive hover:bg-destructive/90 text-white px-8"
+                onClick={handleBookLesson}
+              >
+                Book Trial Lesson
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Important Note Section */}
+        <div className="bg-blue-50 rounded-xl border border-blue-200 p-4 mb-6">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <div>
+              <h3 className="font-semibold text-blue-800 mb-2">Important Note</h3>
+              <p className="text-sm text-blue-700">
+                Please make sure to check the teacher's availability before booking. 
+                Trial lessons are 30 minutes long. Regular lessons are 50 minutes.
+              </p>
             </div>
           </div>
         </div>
@@ -228,6 +274,47 @@ const TeacherProfile = () => {
               >
                 Book now
               </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Information Section */}
+        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+          <h2 className="text-2xl font-bold mb-6">Additional Information</h2>
+          
+          <div className="space-y-6">
+            {/* Teaching Style */}
+            {teacher.teaching_style && (
+              <div>
+                <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                  <Info className="w-5 h-5" />
+                  Teaching Style
+                </h3>
+                <p className="text-muted-foreground">{teacher.teaching_style}</p>
+              </div>
+            )}
+            
+            {/* Experience */}
+            {teacher.experience && (
+              <div>
+                <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                  <Info className="w-5 h-5" />
+                  Experience
+                </h3>
+                <p className="text-muted-foreground">{teacher.experience}</p>
+              </div>
+            )}
+            
+            {/* Typical Lesson */}
+            <div>
+              <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+                <Info className="w-5 h-5" />
+                Typical Lesson
+              </h3>
+              <p className="text-muted-foreground">
+                A typical lesson includes a warm-up conversation, targeted practice based on your needs, 
+                real-time corrections, and personalized feedback. Homework is optional but recommended.
+              </p>
             </div>
           </div>
         </div>
